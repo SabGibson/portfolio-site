@@ -19,7 +19,7 @@ class Project(models.Model):
         ('P', 'Public'),
         ('H', 'Hidden')
     ]
-    author = models.ForeignKey(
+    creator = models.ForeignKey(
         Profile, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200)
@@ -35,10 +35,10 @@ class Post(models.Model):
         ('D', 'Draft')
     ]
 
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE,)
+    author = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='author')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -62,7 +62,7 @@ class Comment(models.Model):
     status = models.CharField(max_length=1, choices=COMMENT_STATUS_CHOICES)
 
     class Meta:
-        ordering = ("created_on")
+        ordering = ("created_on",)
 
     def __str__(self) -> str:
         return f"{self.author.username} commented on {self.created_on}"

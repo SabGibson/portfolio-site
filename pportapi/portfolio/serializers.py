@@ -11,13 +11,13 @@ class ProfileSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = ['title', 'description', 'author', 'created_on']
+        fields = ['id', 'title', 'description', 'creator', 'created_on']
 
 
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
-        fields = ['title', 'descripion', 'content',
+        fields = ['id', 'title', 'content',
                   'created_on', 'updated_at', 'author', 'like_count']
 
     like_count = serializers.SerializerMethodField(method_name='likes_count')
@@ -29,4 +29,4 @@ class PostSerializer(serializers.ModelSerializer):
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['post', 'created_on', 'author', 'content',]
+        fields = ['id', 'post', 'created_on', 'author', 'content',]

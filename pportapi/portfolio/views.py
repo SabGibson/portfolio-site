@@ -16,7 +16,7 @@ class ProjectViewSet(ModelViewSet):
 
 
 class PostViewSet(ModelViewSet):
-    queryset = Post.objects.select_related('Comment').all()
+    queryset = Post.objects.all()
     serializer_class = PostSerializer
 
 
