@@ -9,6 +9,9 @@ pytest = "*"
 pytest-django = "*"
 psycopg2 = "*"
 djangorestframework = "*"
+drf-nested-routers = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 pytest-watch = "*"
