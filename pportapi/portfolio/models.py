@@ -10,6 +10,9 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
 
+    def __str__(self) -> str:
+        return self.username
+
 
 class Project(models.Model):
     PROJECT_STATUS_CHOICES = [
@@ -18,6 +21,9 @@ class Project(models.Model):
     ]
     author = models.ForeignKey(
         Profile, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=200)
+    description = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=PROJECT_STATUS_CHOICES)
@@ -32,7 +38,6 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE,)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
-    image = models.ImageField()
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
