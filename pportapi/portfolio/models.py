@@ -38,6 +38,7 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE,)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
