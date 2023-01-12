@@ -17,7 +17,7 @@ class Project(models.Model):
         ('H', 'Hidden')
     ]
     author = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+        Profile, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=PROJECT_STATUS_CHOICES)
@@ -28,8 +28,17 @@ class Post(models.Model):
         ('P', 'Published'),
         ('D', 'Draft')
     ]
+
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+
+    def __str__(self) -> str:
+        return f"{self.title} by {self.author.username}"
+
+
+class Likes(models.Model):
+    liked_post = models.ManyToManyField(Post, name=likes)
