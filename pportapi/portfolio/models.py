@@ -26,7 +26,8 @@ class Project(models.Model):
     description = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=1, choices=PROJECT_STATUS_CHOICES)
+    status = models.CharField(
+        max_length=1, choices=PROJECT_STATUS_CHOICES, default='P')
 
 
 class Post(models.Model):
@@ -42,7 +43,8 @@ class Post(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES)
+    status = models.CharField(
+        max_length=1, choices=STATUS_CHOICES, default='P')
     liked = models.ManyToManyField(Profile, default=None, blank=True)
 
     def __str__(self) -> str:
@@ -59,7 +61,8 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=1, choices=COMMENT_STATUS_CHOICES)
+    status = models.CharField(
+        max_length=1, choices=COMMENT_STATUS_CHOICES, default='P')
 
     class Meta:
         ordering = ("created_on",)
