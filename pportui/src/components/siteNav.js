@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Logo from "../assets/logo.svg";
-import { useState } from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import DefaultProfilePic from "../assets/anon_user.png";
 import Drawer from "@mui/material/Drawer";
@@ -28,11 +28,24 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NoteIcon from "@mui/icons-material/Note";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useTheme } from "@mui/material/styles";
-
+import { Outlet } from "react-router-dom";
+import Container from "@mui/material/Container";
 const drawerWidth = 240;
 
 const SiteNav = (props) => {
-  const isLoggedin = true;
+  const { history } = props;
+
+  const routeItems = {
+    cardLinks: [
+      { text: "account-settings", icon: <SettingsIcon />, route: "/account" },
+    ],
+
+    generalLinks: [{ text: "Home", icon: <HomeIcon />, route: "/" }],
+
+    authedLinks: [{}],
+  };
+
+  const isLoggedin = false;
   const account = {
     displayName: "Test User",
     username: "@Tester123",
@@ -51,6 +64,7 @@ const SiteNav = (props) => {
   };
 
   const AppBarSxStyle = {
+    width: "100%",
     ...(open && {
       width: `calc(100% - ${drawerWidth}px)`,
       ml: `${drawerWidth}px`,
@@ -99,130 +113,163 @@ const SiteNav = (props) => {
     width: 60,
     background: "grey",
   };
+
+  const mainSxStyle = {
+    mt: "80px",
+    display: "flex",
+    border: "solid 3px blue",
+    width: "100%",
+    height: "10000px",
+    justifyContent: "center",
+    ...(open && {
+      width: `100% - ${drawerWidth}px`,
+      ml: `${drawerWidth}px`,
+    }),
+  };
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar sx={AppBarSxStyle}>
-        <Toolbar sx={containerSxStyle}>
-          <Box
-            component={"div"}
-            sx={{ width: "20%", display: "flex", justifyContent: "flex-start" }}
-          >
-            <IconButton
-              color="inherit"
-              aria-label="open-drawer menu"
-              onClick={handelOpenDrawer}
-              edge="start"
-              sx={{ mr: 2, ...(open && { display: "none" }) }}
+    <Container sx={{ maxWidth: "xl" }}>
+      <Box
+        component="div"
+        sx={{
+          display: "block",
+        }}
+      >
+        <Box component={"div"} sx={mainSxStyle}>
+          <h1>Hi</h1>
+          <Outlet />
+        </Box>
+        <AppBar sx={AppBarSxStyle}>
+          <Toolbar sx={containerSxStyle}>
+            <Box
+              component={"div"}
+              sx={{
+                width: "20%",
+                display: "flex",
+                justifyContent: "flex-start",
+              }}
             >
-              <MenuIcon />
+              <IconButton
+                color="inherit"
+                aria-label="open-drawer menu"
+                onClick={handelOpenDrawer}
+                edge="start"
+                sx={{ mr: 2, ...(open && { display: "none" }) }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+
+            <Box component="img" sx={logoSxStyle} src={Logo} alt="site-logo" />
+            <Box component={"div"} sx={{ width: "20%" }}></Box>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={drawerSxStyle}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <Box component={"div"} sx={drawerHeaderSxStyle}>
+            <IconButton edge="end" onClick={handelCloseDrawer}>
+              <ChevronLeftIcon />
             </IconButton>
           </Box>
-
-          <Box component="img" sx={logoSxStyle} src={Logo} alt="site-logo" />
-          <Box component={"div"} sx={{ width: "20%" }}></Box>
-        </Toolbar>
-      </AppBar>
-      <Drawer sx={drawerSxStyle} variant="persistent" anchor="left" open={open}>
-        <Box component={"div"} sx={drawerHeaderSxStyle}>
-          <IconButton edge="end" onClick={handelCloseDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </Box>
-        <Divider />
-        <Box component={"div"} sx={drawerAnonActionsSxStyle}>
-          <Button variant="contained" aria-label="sign-up button">
-            Sign-Up
-          </Button>
-          <Typography variant="body" sx={{ p: 0.5 }}>
-            or
-          </Typography>
-          <Button variant="contained" arial-label="login button">
-            Login
-          </Button>
-        </Box>
-        <Box component={"div"} sx={drawerAuthedActionsSxStyle}>
-          <Card
-            sx={{
-              width: `${drawerWidth}px`,
-              background: "secondary",
-              boxShadow: "none",
-            }}
-          >
-            <CardHeader
-              avatar={
-                <Avatar
-                  sx={avatarSxStyle}
-                  alt="profile-picture"
-                  src={
-                    account.profilePicture
-                      ? account.profilePath
-                      : DefaultProfilePic
-                  }
-                >
-                  {account.displayName[0]}
-                </Avatar>
-              }
-              title={account.displayName}
-              subheader={account.username}
-            />
-            <CardActions
-              sx={{ display: "flex", justifyContent: "space-between" }}
-              disableSpacing
+          <Divider />
+          <Box component={"div"} sx={drawerAnonActionsSxStyle}>
+            <Button variant="contained" aria-label="sign-up button">
+              Sign-Up
+            </Button>
+            <Typography variant="body" sx={{ p: 0.5 }}>
+              or
+            </Typography>
+            <Button variant="contained" arial-label="login button">
+              Login
+            </Button>
+          </Box>
+          <Box component={"div"} sx={drawerAuthedActionsSxStyle}>
+            <Card
+              sx={{
+                width: `${drawerWidth}px`,
+                background: "secondary",
+                boxShadow: "none",
+              }}
             >
-              <IconButton aria-label="logout">
-                <LogoutIcon />
-              </IconButton>
-              <IconButton aria-label="settings" edge="end" sx={{ mr: 1 }}>
-                <SettingsIcon />
-              </IconButton>
-            </CardActions>
-          </Card>
-        </Box>
-        <Divider />
-        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-          <List component={"nav"} aria-label="site-navigation" disablePadding>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <HomeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <BadgeIcon />
-                </ListItemIcon>
-                <ListItemText primary="Profile" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
-        <Divider />
-        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
-          <List component={"nav"} aria-label="site-navigation" disablePadding>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AccountTreeIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Projects" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton>
-                <ListItemIcon>
-                  <NoteIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Posts" />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Box>
-        <Divider />
-      </Drawer>
-    </Box>
+              <CardHeader
+                avatar={
+                  <Avatar
+                    sx={avatarSxStyle}
+                    alt="profile-picture"
+                    src={
+                      account.profilePicture
+                        ? account.profilePath
+                        : DefaultProfilePic
+                    }
+                  >
+                    {account.displayName[0]}
+                  </Avatar>
+                }
+                title={account.displayName}
+                subheader={account.username}
+              />
+              <CardActions
+                sx={{ display: "flex", justifyContent: "space-between" }}
+                disableSpacing
+              >
+                <IconButton aria-label="logout">
+                  <LogoutIcon />
+                </IconButton>
+                <IconButton aria-label="settings" edge="end" sx={{ mr: 1 }}>
+                  <SettingsIcon />
+                </IconButton>
+              </CardActions>
+            </Card>
+          </Box>
+          <Divider />
+          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+            <List component={"nav"} aria-label="site-navigation" disablePadding>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <BadgeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Profile" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+          <Divider />
+          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+            <List component={"nav"} aria-label="site-navigation" disablePadding>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AccountTreeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Projects" />
+                </ListItemButton>
+              </ListItem>
+              <ListItem>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <NoteIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Posts" />
+                </ListItemButton>
+              </ListItem>
+            </List>
+          </Box>
+          <Divider />
+        </Drawer>
+      </Box>
+    </Container>
   );
 };
 
