@@ -117,9 +117,8 @@ const SiteNav = (props) => {
   const mainSxStyle = {
     mt: "80px",
     display: "flex",
-    border: "solid 3px blue",
+    border: "solid 3px blue" /*remove after development*/,
     width: "100%",
-    height: "10000px",
     justifyContent: "center",
     ...(open && {
       width: `100% - ${drawerWidth}px`,
@@ -135,7 +134,6 @@ const SiteNav = (props) => {
         }}
       >
         <Box component={"div"} sx={mainSxStyle}>
-          <h1>Hi</h1>
           <Outlet />
         </Box>
         <AppBar sx={AppBarSxStyle}>
