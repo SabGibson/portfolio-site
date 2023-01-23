@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 const Login = () => {
   const {
     register,
@@ -64,11 +65,20 @@ const Login = () => {
             name="submit"
             control={control}
             render={({ field }) => (
-              <Button {...field} type="submit">
-                Submit
+              <Button {...field} type="submit" variant="contained">
+                Login
               </Button>
             )}
           />
+        </Box>
+        <Box component={"div"}>
+          <Typography variant="body2">
+            Don't have an account? <Link to={"/sign-up"}>Sign Up</Link>
+          </Typography>
+          <Typography variant="body2">
+            Forgot your password ?{" "}
+            <Link to={"/reset-password"}>Reset password</Link>
+          </Typography>
         </Box>
       </Box>
     </Container>

@@ -13,11 +13,13 @@ import ResetPasswordConfirm from "./pages/ResetPwConfirm";
 import Activate from "./pages/Activate";
 import Profile from "./pages/Profile";
 import SiteNav from "./components/siteNav";
+import Register from "./pages/Register";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<SiteNav />}>
       <Route index element={<Home />} />
       <Route path="login" element={<Login />} />
+      <Route path="sign-up" element={<Register />} />
       <Route path="projects" element={<Home />} />
       <Route path="projects/:id" element={<ProjectsDetail />} />
       <Route path="profile" element={<Profile />} />
