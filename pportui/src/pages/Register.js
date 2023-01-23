@@ -22,7 +22,6 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
     axiosInstance
       .post("auth/users/", {
         email: data.email,
@@ -33,7 +32,7 @@ const Register = () => {
       .then((res) => {
         console.log(res);
         console.log("user created");
-        redirect("/login");
+        navigate("/login");
       })
       .catch((err) => {
         console.log(err.message);

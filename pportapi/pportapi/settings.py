@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework',
     'djoser',
     'portfolio',
@@ -147,6 +148,9 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
+    'ROTATE_REFRESH_ROTATION': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+
 }
 
 AUTH_USER_MODEL = 'core.User'

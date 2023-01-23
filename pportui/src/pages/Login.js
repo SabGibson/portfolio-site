@@ -22,10 +22,10 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(JSON.stringify(data));
+    console.log(data);
     axiosInstance
-      .post("auth/jwt/create", {
-        email: data.email,
+      .post("auth/jwt/create/", {
+        username: data.username,
         password: data.password,
       })
       .then((res) => {
@@ -38,7 +38,7 @@ const Login = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err?.message);
       });
   };
 
@@ -53,14 +53,14 @@ const Login = () => {
         <Typography variant="body2">Sign into your Account</Typography>
         <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name="email"
+            name="username"
             control={control}
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Email"
+                label="Username"
                 varient="standard"
-                type="email"
+                type="text"
                 fullWidth
                 error={!!errors.email}
                 helperText={errors.email ? errors.email?.message : " "}
@@ -82,15 +82,9 @@ const Login = () => {
               />
             )}
           />
-          <Controller
-            name="submit"
-            control={control}
-            render={({ field }) => (
-              <Button {...field} type="submit" variant="contained">
-                Login
-              </Button>
-            )}
-          />
+          <Button type="submit" variant="contained" component="button">
+            Sign up
+          </Button>
         </Box>
         <Box component={"div"}>
           <Typography variant="body2">
