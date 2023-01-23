@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://loaclhost:8000/";
+const baseURL = "http://localhost:8000/";
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -44,3 +44,4 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+// 38D$L5lY$pTM&&o2g&1LY4

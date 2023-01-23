@@ -151,16 +151,16 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'core.User'
 
+
 DJOSER = {
-    'SERIALIZERS': {
-        'user_create': 'core.serializers.UserCreateSerializer',
-        'user_delete': 'djoser.serializers.UserDeleteSerializer'
-    }, 'LOGIN_FIELD': 'email', 'USER_CREATE_PASSWORD_RETYPE': True,
+    'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True, 'SEND_CONFIRMATION_EMAIL': True,
     'SET_PASSWORD_RETYPE': True, 'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': 'activate/{uid}/{token}', 'SEND_ACTIVATION_EMAIL': True
+    'ACTIVATION_URL': 'activate/{uid}/{token}', 'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {'user_create': 'core.serializers.UserCreateSerializer'},
 }
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

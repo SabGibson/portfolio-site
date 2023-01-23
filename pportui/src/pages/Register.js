@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate, redirect } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import axiosInstance from "../api/axios";
@@ -22,17 +22,18 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(JSON.stringify(data));
     axiosInstance
-      .post("auth/users", {
+      .post("auth/users/", {
         email: data.email,
+        username: data.username,
         password: data.password,
-        re_password: data.re_password,
+        re_password: data.confirmPassword,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         console.log("user created");
-        navigate("/");
+        redirect("/login");
       })
       .catch((err) => {
         console.log(err.message);
@@ -49,6 +50,21 @@ const Register = () => {
         <Typography variant="h1">Join Now</Typography>
         <Typography variant="body2">Start sharing your projefcts</Typography>
         <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="username"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                label="Username"
+                varient="standard"
+                type="text"
+                fullWidth
+                error={!!errors.username}
+                helperText={errors.username ? errors.username?.message : " "}
+              />
+            )}
+          />
           <Controller
             name="email"
             control={control}
@@ -80,7 +96,7 @@ const Register = () => {
             )}
           />
           <Controller
-            name="repassword"
+            name="confirmPassword"
             control={control}
             render={({ field }) => (
               <TextField
@@ -89,28 +105,21 @@ const Register = () => {
                 varient="standard"
                 type="password"
                 fullWidth
-                error={!!errors.password}
-                helperText={errors.password ? errors.password?.message : " "}
+                error={!!errors.re_password}
+                helperText={
+                  errors.re_password ? errors.re_password?.message : " "
+                }
               />
             )}
           />
-          <Controller
-            name="submit"
-            control={control}
-            render={({ field }) => (
-              <Button {...field} type="submit" variant="contained">
-                Sign Up
-              </Button>
-            )}
-          />
+
+          <Button type="submit" variant="contained" component="button">
+            Sign up
+          </Button>
         </Box>
         <Box component={"div"}>
           <Typography variant="body2">
-            Don't have an account? <Link to={"/sign-up"}>Sign Up</Link>
-          </Typography>
-          <Typography variant="body2">
-            Forgot your password ?{" "}
-            <Link to={"/reset-password"}>Reset password</Link>
+            Already have an account? <Link to={"/login"}>Sign in</Link>
           </Typography>
         </Box>
       </Box>

@@ -22,7 +22,7 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(JSON.stringify(data));
     axiosInstance
       .post("auth/jwt/create", {
         email: data.email,
