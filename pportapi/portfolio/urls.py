@@ -10,6 +10,7 @@ router.register('posts', views.PostViewSet)
 posts_router = routers.NestedDefaultRouter(router, 'posts', lookup='post')
 posts_router.register('comments', views.CommentsViewSet,
                       basename='post-comments')
+
 urlpatterns = [
 
     path('', include(router.urls)),

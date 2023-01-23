@@ -6,13 +6,27 @@ import {
   Route,
 } from "react-router-dom";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import ProjectsDetail from "./pages/ProjectsDetail";
+import ResetPassword from "./pages/ResetPw";
+import ResetPasswordConfirm from "./pages/ResetPwConfirm";
+import Activate from "./pages/Activate";
+import Profile from "./pages/Profile";
 import SiteNav from "./components/siteNav";
-import Register from "./pages/Register";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<SiteNav />}>
-      <Route path="home" element={<Home />} />
-      <Route path="sign-up" element={<Register />} />
+      <Route index element={<Home />} />
+      <Route path="login" element={<Login />} />
+      <Route path="projects" element={<Home />} />
+      <Route path="projects/:id" element={<ProjectsDetail />} />
+      <Route path="profile" element={<Profile />} />
+      <Route path="reset-password" element={<ResetPassword />} />
+      <Route
+        path="password/reset/confirm/:uid/:token"
+        element={<ResetPasswordConfirm />}
+      />
+      <Route path="activate/:uid/:token" element={<Activate />} />
     </Route>
   )
 );

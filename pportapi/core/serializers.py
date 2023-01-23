@@ -3,5 +3,4 @@ from djoser.serializers import UserCreateSerializer as DjoserBaseUserCreateSeria
 
 class UserCreateSerializer(DjoserBaseUserCreateSerializer):
     class Meta(DjoserBaseUserCreateSerializer.Meta):
-        fields = ['id', 'username' 'email', 'password',
-                  ]
+        fields = ['id', 'username' 'email', 'password']

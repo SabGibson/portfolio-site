@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "corsheaders",
     'rest_framework',
     'djoser',
     'portfolio',
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -58,7 +61,7 @@ ROOT_URLCONF = "pportapi.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'build')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -88,6 +91,12 @@ DATABASES = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = '587'
+EMAIL_HOST_USER = 'server115200398@gmail.com'
+EMAIL_HOST_PASSWORD = 'hyhcnloxerywduji'
+EMAIL_USE_TLS = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -118,6 +127,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build/static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -127,7 +140,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    ), 'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
 }
 
 SIMPLE_JWT = {
@@ -138,6 +153,15 @@ AUTH_USER_MODEL = 'core.User'
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'core.serializers.UserCreateSerializer'
-    }
+        'user_create': 'core.serializers.UserCreateSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer'
+    }, 'LOGIN_FIELD': 'email', 'USER_CREATE_PASSWORD_RETYPE': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True, 'SEND_CONFIRMATION_EMAIL': True,
+    'SET_PASSWORD_RETYPE': True, 'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}', 'SEND_ACTIVATION_EMAIL': True
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
