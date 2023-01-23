@@ -4,8 +4,15 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
+import { useContext } from "react";
+import axiosInstance from "../api/axios";
+
 const Login = () => {
+  const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
+
   const {
     register,
     control,
@@ -14,11 +21,25 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  console.log("errors", errors);
-  console.log("watch vars", watch("email"));
-
   const onSubmit = (data) => {
     console.log(data);
+    axiosInstance
+      .post("auth/jwt/create", {
+        email: data.email,
+        password: data.password,
+      })
+      .then((res) => {
+        localStorage.setItem("access_token", res.data.access);
+        localStorage.setItem("refresh_token", res.data.refresh);
+        axiosInstance.defaults.headers["Authorization"] =
+          "JWT " + localStorage.getItem("access_token");
+        console.log(res.data);
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
