@@ -2,7 +2,8 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Logo from "../assets/logo.svg";
-import React, { useState } from "react";
+import { useState, useContext } from "react";
+import AuthContext from "../context/AuthProvider";
 import Avatar from "@mui/material/Avatar";
 import DefaultProfilePic from "../assets/anon_user.png";
 import Drawer from "@mui/material/Drawer";
@@ -28,24 +29,18 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NoteIcon from "@mui/icons-material/Note";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useTheme } from "@mui/material/styles";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
+import LogoutUserCall from "./LogoutUser";
+
 const drawerWidth = 240;
 
 const SiteNav = (props) => {
-  const { history } = props;
+  const { auth } = useContext(AuthContext);
 
-  const routeItems = {
-    cardLinks: [
-      { text: "account-settings", icon: <SettingsIcon />, route: "/account" },
-    ],
+  const navigate = useNavigate();
 
-    generalLinks: [{ text: "Home", icon: <HomeIcon />, route: "/" }],
-
-    authedLinks: [{}],
-  };
-
-  const isLoggedin = false;
+  const isLoggedin = true;
   const account = {
     displayName: "Test User",
     username: "@Tester123",
@@ -213,7 +208,7 @@ const SiteNav = (props) => {
                 sx={{ display: "flex", justifyContent: "space-between" }}
                 disableSpacing
               >
-                <IconButton aria-label="logout">
+                <IconButton onClick={LogoutUserCall} aria-label="logout">
                   <LogoutIcon />
                 </IconButton>
                 <IconButton aria-label="settings" edge="end" sx={{ mr: 1 }}>

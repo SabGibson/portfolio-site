@@ -13,9 +13,64 @@ import DefaultProfilePic from "../assets/anon_user.png";
 import useFetch from "../components/useFetch";
 
 const Home = () => {
-  const { appState, data, error } = useFetch("http://localhost:8000/projects");
+  // const { appState, data, error } = useFetch("http://localhost:8000/projects");
 
   const projectsList = [
+    {
+      image: false,
+      date: "20th January, 2023",
+      title: "Dummy Title",
+      exerpt:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
+      author: {
+        image: DefaultProfilePic,
+        name: "Test 'er",
+      },
+    },
+    {
+      image: false,
+      date: "20th January, 2023",
+      title: "Dummy Title",
+      exerpt:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
+      author: {
+        image: DefaultProfilePic,
+        name: "Test 'er",
+      },
+    },
+    {
+      image: false,
+      date: "20th January, 2023",
+      title: "Dummy Title",
+      exerpt:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
+      author: {
+        image: DefaultProfilePic,
+        name: "Test 'er",
+      },
+    },
+    {
+      image: false,
+      date: "20th January, 2023",
+      title: "Dummy Title",
+      exerpt:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
+      author: {
+        image: DefaultProfilePic,
+        name: "Test 'er",
+      },
+    },
+    {
+      image: false,
+      date: "20th January, 2023",
+      title: "Dummy Title",
+      exerpt:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
+      author: {
+        image: DefaultProfilePic,
+        name: "Test 'er",
+      },
+    },
     {
       image: false,
       date: "20th January, 2023",

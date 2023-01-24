@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import axiosInstance from "../api/axios";
@@ -34,7 +34,7 @@ const Login = () => {
         axiosInstance.defaults.headers["Authorization"] =
           "JWT " + localStorage.getItem("access_token");
         console.log(res.data);
-
+        setAuth({ authed: true });
         navigate("/");
       })
       .catch((err) => {
