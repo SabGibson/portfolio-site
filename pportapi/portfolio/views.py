@@ -7,18 +7,18 @@ from .serializers import *
 
 
 class ProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
-    queryset = Profile.objects.all()
+    queryset = Profile.objects.prefetch_related('images').all()
     serializer_class = ProfileSerializer
 
 
 class ProjectViewSet(ModelViewSet):
-    queryset = Project.objects.all()
+    queryset = Project.objects.prefetch_related('images').all()
     serializer_class = ProjectSerializer
 
 
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
-    queryset = Post.objects.select_related('project').all()
+    queryset = Post.objects.prefetch_related('project__images__comments').all()
 
 
 class CommentsViewSet(ModelViewSet):

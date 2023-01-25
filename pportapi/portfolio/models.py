@@ -16,7 +16,7 @@ class Profile(models.Model):
 
 class ProfileImage(models.Model):
     profile = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='profileimage')
+        Profile, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField('profile/images')
 
 
@@ -38,7 +38,7 @@ class Project(models.Model):
 
 class ProjectImage(models.Model):
     project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name='profileimage')
+        Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField('project/images')
 
 
@@ -65,7 +65,7 @@ class Post(models.Model):
 
 class PostImage(models.Model):
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='profileimage')
+        Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField('post/images')
 
 
@@ -75,8 +75,10 @@ class Comment(models.Model):
         ('P', 'Public'),
         ('H', 'Hidden')
     ]
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        Profile, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='comments')
     content = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
