@@ -37,7 +37,7 @@ class Project(models.Model):
 
 
 class ProjectImage(models.Model):
-    profile = models.ForeignKey(
+    project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name='profileimage')
     image = models.ImageField('project/images')
 
@@ -64,7 +64,7 @@ class Post(models.Model):
 
 
 class PostImage(models.Model):
-    profile = models.ForeignKey(
+    post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='profileimage')
     image = models.ImageField('post/images')
 
