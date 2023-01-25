@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Logo from "../assets/logo.svg";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthProvider";
 import Avatar from "@mui/material/Avatar";
 import DefaultProfilePic from "../assets/anon_user.png";
@@ -31,16 +31,14 @@ import BadgeIcon from "@mui/icons-material/Badge";
 import { useTheme } from "@mui/material/styles";
 import { Outlet, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
-import LogoutUserCall from "./LogoutUser";
-
+import axiosInstance from "../api/axios";
 const drawerWidth = 240;
 
 const SiteNav = (props) => {
-  const { auth } = useContext(AuthContext);
-
+  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const isLoggedin = true;
+  const isLoggedin = auth.authed;
   const account = {
     displayName: "Test User",
     username: "@Tester123",
@@ -56,6 +54,21 @@ const SiteNav = (props) => {
 
   const handelCloseDrawer = () => {
     setOpen(false);
+  };
+
+  const LogoutCall = () => {
+    if (auth) {
+      const response = axiosInstance.post("logout/", {
+        refresh_token: localStorage.getItem("refresh_token"),
+      });
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      axiosInstance.defaults.headers["Authorization"] = null;
+      setAuth({ authed: false });
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
   };
 
   const AppBarSxStyle = {
@@ -208,7 +221,7 @@ const SiteNav = (props) => {
                 sx={{ display: "flex", justifyContent: "space-between" }}
                 disableSpacing
               >
-                <IconButton onClick={LogoutUserCall} aria-label="logout">
+                <IconButton onClick={LogoutCall} aria-label="logout">
                   <LogoutIcon />
                 </IconButton>
                 <IconButton aria-label="settings" edge="end" sx={{ mr: 1 }}>

@@ -83,7 +83,7 @@ const Login = () => {
             )}
           />
           <Button type="submit" variant="contained" component="button">
-            Sign up
+            Login
           </Button>
         </Box>
         <Box component={"div"}>

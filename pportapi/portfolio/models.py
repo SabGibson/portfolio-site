@@ -14,6 +14,12 @@ class Profile(models.Model):
         return self.username
 
 
+class ProfileImage(models.Model):
+    profile = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name='profileimage')
+    image = models.ImageField('profile/images')
+
+
 class Project(models.Model):
     PROJECT_STATUS_CHOICES = [
         ('P', 'Public'),
@@ -28,6 +34,12 @@ class Project(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(
         max_length=1, choices=PROJECT_STATUS_CHOICES, default='P')
+
+
+class ProjectImage(models.Model):
+    profile = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name='profileimage')
+    image = models.ImageField('project/images')
 
 
 class Post(models.Model):
@@ -49,6 +61,12 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return f"{self.title} by {self.author.username}"
+
+
+class PostImage(models.Model):
+    profile = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='profileimage')
+    image = models.ImageField('post/images')
 
 
 class Comment(models.Model):
