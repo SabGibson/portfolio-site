@@ -16,7 +16,7 @@ import AuthContext from "../context/AuthProvider";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useContext, useState } from "react";
 import axiosInstance from "../api/axios";
-import { Divider } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 
 export default function PostDetail() {

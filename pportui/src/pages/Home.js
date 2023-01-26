@@ -10,14 +10,19 @@ import CardActionArea from "@mui/material/CardActionArea";
 import DefaultBg from "../assets/default_bg.jpg";
 import Avatar from "@mui/material/Avatar";
 import DefaultProfilePic from "../assets/anon_user.png";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import Divider from "@mui/material/Divider";
 import axiosInstance from "../api/axios";
 import AuthContext from "../context/AuthProvider";
 import { useContext, useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const { auth } = useContext(AuthContext);
 
+  const navigate = useNavigate();
   const projectsData = useLoaderData();
 
   console.log(projectsData);
@@ -67,6 +72,33 @@ export default function Home() {
                       </Typography>
                     </CardContent>
                   </CardActionArea>
+                  <Divider />
+                  <CardActions
+                    sx={{
+                      display: "flex-block",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Box component={"div"} sx={{ justifyContent: "start" }}>
+                      <IconButton
+                        aria-label="delete post"
+                        onClick={() => {
+                          axiosInstance.delete(`projects/${project.id}/`);
+                          navigate(`/`);
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton
+                        aria-label="edit post"
+                        onClick={() => {
+                          navigate(`projects/${project.id}`);
+                        }}
+                      >
+                        <EditIcon />
+                      </IconButton>
+                    </Box>
+                  </CardActions>
                 </Card>
               </Grid>
             );
