@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -144,11 +145,12 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ]
 }
-
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     'ROTATE_REFRESH_ROTATION': True,
     'BLACKLIST_AFTER_ROTATION': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 
 }
 
@@ -161,7 +163,7 @@ DJOSER = {
     'SET_PASSWORD_RETYPE': True, 'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
     'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': 'activate/{uid}/{token}', 'SEND_ACTIVATION_EMAIL': True,
-    'SERIALIZERS': {'user_create': 'core.serializers.UserCreateSerializer'},
+    'SERIALIZERS': {'user_create': 'core.serializers.UserCreateSerializer', 'current_user': 'core.serializers.UserSerializer'},
 }
 
 

@@ -32,9 +32,6 @@ class ProjectImageSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     images = ProfileImageSerializer(many=True, read_only=True)
-    creator = serializers.StringRelatedField()
-
-    created_on = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
 
     class Meta:
         model = Project
@@ -57,7 +54,7 @@ class CommentSerializer(serializers.ModelSerializer):
         post_id = self.context['post_id']
         return Comment.objects.create(post_id=post_id, **validated_data)
 
-    created_on = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
+    author = serializers.StringRelatedField()
 
     class Meta:
         model = Comment
@@ -68,14 +65,10 @@ class PostSerializer(serializers.ModelSerializer):
 
     images = PostImageSerializer(many=True, read_only=True)
 
-    comments = CommentSerializer(many=True)
-
-    created_on = serializers.DateTimeField(format="%d-%m-%Y %H:%M:%S")
-
     class Meta:
         model = Post
-        fields = ['id', 'images', 'title', 'content',
-                  'created_on', 'updated_at', 'author', 'comments', 'like_count', 'images']
+        fields = ['id', 'images', 'project', 'title', 'content',
+                  'created_on', 'updated_at', 'author', 'like_count', 'images']
 
     like_count = serializers.SerializerMethodField(method_name='likes_count')
 

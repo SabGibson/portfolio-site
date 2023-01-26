@@ -134,16 +134,13 @@ const SiteNav = () => {
     }),
   };
   return (
-    <Container sx={{ maxWidth: "xl" }}>
+    <Container sx={{ maxWidth: "xxl" }}>
       <Box
         component="div"
         sx={{
           display: "block",
         }}
       >
-        <Box component={"div"} sx={mainSxStyle}>
-          <Outlet />
-        </Box>
         <AppBar sx={AppBarSxStyle}>
           <Toolbar sx={containerSxStyle}>
             <Box
@@ -298,6 +295,9 @@ const SiteNav = () => {
           </Box>
           <Divider />
         </Drawer>
+      </Box>
+      <Box component={"div"} sx={mainSxStyle}>
+        <Outlet />
       </Box>
     </Container>
   );

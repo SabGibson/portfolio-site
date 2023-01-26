@@ -8,10 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import { useParams } from "react-router-dom";
 
-const MakePost = () => {
+const MakeProject = () => {
   const navigate = useNavigate();
-
-  const { project_id } = useParams();
 
   const {
     register,
@@ -25,12 +23,10 @@ const MakePost = () => {
     axiosInstance
       .get("auth/users/me/")
       .then((res) => {
-        console.log(res);
-        axiosInstance.post("posts/", {
-          author: res.data.id,
-          project: project_id,
-          title: data.title,
-          content: data.content,
+        axiosInstance.post(`projects/`, {
+          creator: res.data.id,
+          title: "dummy Title made to check post",
+          description: "dummy Title made to check post again",
         });
       })
       .catch((err) => {
@@ -86,4 +82,4 @@ const MakePost = () => {
     </Container>
   );
 };
-export default MakePost;
+export default MakeProject;

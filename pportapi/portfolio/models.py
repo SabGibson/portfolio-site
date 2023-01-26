@@ -26,7 +26,7 @@ class Project(models.Model):
         ('H', 'Hidden')
     ]
     creator = models.ForeignKey(
-        Profile, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=200)
     description = models.TextField()
@@ -49,7 +49,7 @@ class Post(models.Model):
     ]
 
     author = models.ForeignKey(
-        Profile, on_delete=models.CASCADE, related_name='author')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='author')
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -76,8 +76,9 @@ class Comment(models.Model):
         ('H', 'Hidden')
     ]
     author = models.ForeignKey(
-        Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="comments")
     content = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(

@@ -21,52 +21,21 @@ export default function Home() {
   const projectsData = useLoaderData();
 
   console.log(projectsData);
-  const projectsList = [
-    {
-      image: false,
-      date: "20th January, 2023",
-      title: "Dummy Title",
-      exerpt:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
-      author: {
-        image: DefaultProfilePic,
-        name: "Test 'er",
-      },
-    },
-    {
-      image: false,
-      date: "20th January, 2023",
-      title: "Dummy Title",
-      exerpt:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae debitis fugiat ducimus velit eligendi, sequi neque ad est veniam, harum laborum optio modi vero inventore voluptatem quo nemo vitae officia?",
-      author: {
-        image: DefaultProfilePic,
-        name: "Test 'er",
-      },
-    },
-  ];
 
   const cardSxStyle = {
-    maxWidth: 475,
-    minWidth: 300,
+    maxWidth: 500,
+    minWidth: 275,
+    p: 2,
   };
 
   return (
-    <Box
-      component={"div"}
-      sx={{ display: "flex", justifyContent: "center", p: 2 }}
-    >
+    <Box component={"div"} sx={{ display: "flex" }}>
       {
-        <Grid
-          container
-          spacing={3}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          sx={{ width: "100%" }}
-        >
+        <Grid container>
           {projectsData.map((project) => {
             return (
-              <Grid item xs={12} sm={6} md={4} lg={3} sx={{ mx: 0 }}>
-                <Card sx={cardSxStyle}>
+              <Grid item lg={12} key={project.id}>
+                <Card>
                   <CardActionArea>
                     <CardMedia
                       component={"img"}

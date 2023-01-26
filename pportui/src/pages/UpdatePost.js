@@ -4,14 +4,23 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-const MakePost = () => {
+const UpdatePost = () => {
   const navigate = useNavigate();
 
-  const { project_id } = useParams();
+  const { project_id, post_param_id } = useParams();
+
+  const [postHist, setPostHist] = useState();
+
+  useEffect(() => {
+    axiosInstance.get(`posts/${post_param_id}/`).then((res) => {
+      setPostHist(res.data);
+    });
+  }, []);
 
   const {
     register,
@@ -21,21 +30,14 @@ const MakePost = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    axiosInstance
-      .get("auth/users/me/")
-      .then((res) => {
-        console.log(res);
-        axiosInstance.post("posts/", {
-          author: res.data.id,
-          project: project_id,
-          title: data.title,
-          content: data.content,
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+  const onSubmit = async (data) => {
+    axiosInstance.patch(`posts/${post_param_id}/`, {
+      ...postHist,
+      title: data.title,
+      content: data.content,
+    });
+
+    navigate(`projects/${project_id}/posts/`);
   };
 
   return (
@@ -53,7 +55,7 @@ const MakePost = () => {
             render={({ field }) => (
               <TextField
                 {...field}
-                label="Title"
+                label={postHist ? postHist.title : "Title"}
                 varient="standard"
                 type="text"
                 fullWidth
@@ -69,7 +71,7 @@ const MakePost = () => {
               <TextField
                 {...field}
                 varient="standard"
-                label="Content"
+                label={postHist ? postHist.content : "Content"}
                 type="text"
                 fullWidth
                 error={!!errors.content}
@@ -79,11 +81,12 @@ const MakePost = () => {
           />
 
           <Button type="submit" variant="contained" component="button">
-            Create
+            Update Post
           </Button>
         </Box>
       </Box>
     </Container>
   );
 };
-export default MakePost;
+
+export default UpdatePost;

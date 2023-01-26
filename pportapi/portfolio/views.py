@@ -19,7 +19,8 @@ class ProjectViewSet(ModelViewSet):
 
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
-    queryset = Post.objects.prefetch_related('project__images__comments').all()
+    queryset = Post.objects.select_related('project').prefetch_related(
+        'images').prefetch_related('comments').all()
 
 
 class CommentsViewSet(ModelViewSet):
@@ -27,7 +28,7 @@ class CommentsViewSet(ModelViewSet):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return Comment.objects.filter(post_id=self.kwargs['post_pk'])
+        return Comment.objects.prefetch_related('author').filter(post_id=self.kwargs['post_pk'])
 
     def get_serializer_context(self):
         return {'post_id': self.kwargs['post_pk']}
