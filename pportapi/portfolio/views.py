@@ -12,7 +12,8 @@ class ProfileViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, Gen
 
 
 class ProjectViewSet(ModelViewSet):
-    queryset = Project.objects.prefetch_related('images').all()
+    queryset = Project.objects.select_related(
+        'creator').prefetch_related('images').all()
     serializer_class = ProjectSerializer
 
 

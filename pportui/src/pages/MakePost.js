@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 
-const Register = () => {
+const MakePost = () => {
   const navigate = useNavigate();
 
   const {
@@ -122,4 +122,4 @@ const Register = () => {
     </Container>
   );
 };
-export default Register;
+export default MakePost;

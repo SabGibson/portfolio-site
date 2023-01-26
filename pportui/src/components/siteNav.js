@@ -29,12 +29,12 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NoteIcon from "@mui/icons-material/Note";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useTheme } from "@mui/material/styles";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import axiosInstance from "../api/axios";
 const drawerWidth = 240;
 
-const SiteNav = (props) => {
+const SiteNav = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -182,13 +182,25 @@ const SiteNav = (props) => {
           </Box>
           <Divider />
           <Box component={"div"} sx={drawerAnonActionsSxStyle}>
-            <Button variant="contained" aria-label="sign-up button">
+            <Button
+              variant="contained"
+              aria-label="sign-up button"
+              onClick={() => {
+                navigate("/sign-up");
+              }}
+            >
               Sign-Up
             </Button>
-            <Typography variant="body" sx={{ p: 0.5 }}>
+            <Typography variant="body" sx={{ p: 0.5, textAlign: "center" }}>
               or
             </Typography>
-            <Button variant="contained" arial-label="login button">
+            <Button
+              variant="contained"
+              arial-label="login button"
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
               Login
             </Button>
           </Box>
@@ -231,7 +243,13 @@ const SiteNav = (props) => {
             </Card>
           </Box>
           <Divider />
-          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          <Box
+            sx={{
+              width: "100%",
+              bgcolor: "background.paper",
+              ...drawerAuthedActionsSxStyle,
+            }}
+          >
             <List component={"nav"} aria-label="site-navigation" disablePadding>
               <ListItem>
                 <ListItemButton>
@@ -252,7 +270,13 @@ const SiteNav = (props) => {
             </List>
           </Box>
           <Divider />
-          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          <Box
+            sx={{
+              width: "100%",
+              bgcolor: "background.paper",
+              ...drawerAuthedActionsSxStyle,
+            }}
+          >
             <List component={"nav"} aria-label="site-navigation" disablePadding>
               <ListItem>
                 <ListItemButton>
