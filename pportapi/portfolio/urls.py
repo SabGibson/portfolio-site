@@ -22,12 +22,15 @@ projects_router.register(
 
 posts_router = routers.NestedDefaultRouter(router, 'posts', lookup='post')
 posts_router.register('images', views.PostImageViewSet, basename='post-images')
-
+posts_router.register('comments', views.CommentsViewSet,
+                      basename='post-comments')
 
 urlpatterns = [
 
     path('', include(router.urls)),
     path('', include(posts_router.urls)),
     path('', include(projects_router.urls)),
-    path('', include(profile_router.urls))
+    path('', include(profile_router.urls)),
+    path('special/<int:pk>/posts/',
+         views.PostByproject.as_view({'get': 'list'}), name='postsearch')
 ]

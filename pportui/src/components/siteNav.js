@@ -29,7 +29,7 @@ import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import NoteIcon from "@mui/icons-material/Note";
 import BadgeIcon from "@mui/icons-material/Badge";
 import { useTheme } from "@mui/material/styles";
-import { Outlet, Link, useNavigate } from "react-router-dom";
+import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
 import Container from "@mui/material/Container";
 import axiosInstance from "../api/axios";
 const drawerWidth = 240;
@@ -38,7 +38,8 @@ const SiteNav = () => {
   const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const isLoggedin = auth.authed;
+  const isLoggedin = Boolean(localStorage.getItem("access_token"));
+
   const account = {
     displayName: "Test User",
     username: "@Tester123",
@@ -64,7 +65,7 @@ const SiteNav = () => {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       axiosInstance.defaults.headers["Authorization"] = null;
-      setAuth({ authed: false });
+      setAuth({ authed: false, userAccount: null });
       navigate("/login");
     } else {
       navigate("/login");
@@ -123,7 +124,7 @@ const SiteNav = () => {
   };
 
   const mainSxStyle = {
-    mt: "80px",
+    mt: "100px",
     display: "flex",
     border: "solid 3px blue" /*remove after development*/,
     width: "100%",
@@ -161,8 +162,14 @@ const SiteNav = () => {
                 <MenuIcon />
               </IconButton>
             </Box>
-
-            <Box component="img" sx={logoSxStyle} src={Logo} alt="site-logo" />
+            <Link to={"/projects/"}>
+              <Box
+                component="img"
+                sx={logoSxStyle}
+                src={Logo}
+                alt="site-logo"
+              />
+            </Link>
             <Box component={"div"} sx={{ width: "20%" }}></Box>
           </Toolbar>
         </AppBar>
@@ -233,70 +240,16 @@ const SiteNav = () => {
                 <IconButton onClick={LogoutCall} aria-label="logout">
                   <LogoutIcon />
                 </IconButton>
-                <IconButton aria-label="settings" edge="end" sx={{ mr: 1 }}>
-                  <SettingsIcon />
+                <IconButton aria-label="home page" edge="end" sx={{ mr: 1 }}>
+                  <HomeIcon />
                 </IconButton>
               </CardActions>
             </Card>
           </Box>
           <Divider />
-          <Box
-            sx={{
-              width: "100%",
-              bgcolor: "background.paper",
-              ...drawerAuthedActionsSxStyle,
-            }}
-          >
-            <List component={"nav"} aria-label="site-navigation" disablePadding>
-              <ListItem>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <HomeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Home" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <BadgeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Profile" />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Box>
-          <Divider />
-          <Box
-            sx={{
-              width: "100%",
-              bgcolor: "background.paper",
-              ...drawerAuthedActionsSxStyle,
-            }}
-          >
-            <List component={"nav"} aria-label="site-navigation" disablePadding>
-              <ListItem>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AccountTreeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Projects" />
-                </ListItemButton>
-              </ListItem>
-              <ListItem>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <NoteIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="My Posts" />
-                </ListItemButton>
-              </ListItem>
-            </List>
-          </Box>
-          <Divider />
         </Drawer>
       </Box>
-      <Box component={"div"} sx={mainSxStyle}>
+      <Box sx={mainSxStyle}>
         <Outlet />
       </Box>
     </Container>

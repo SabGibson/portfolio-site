@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import axiosInstance from "../api/axios";
+import SigninImage from "../assets/planning_tools.jpg";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Login = () => {
           "JWT " + localStorage.getItem("access_token");
         console.log(res.data);
         setAuth({ authed: true });
-        navigate("/");
+        navigate("/projects/");
       })
       .catch((err) => {
         console.log(err?.message);
@@ -49,9 +50,30 @@ const Login = () => {
         sx={{ disply: "flex", justifyContent: "center" }}
         className="PageForm"
       >
-        <Typography variant="h1">Sign In</Typography>
-        <Typography variant="body2">Sign into your Account</Typography>
-        <Box component={"form"} onSubmit={handleSubmit(onSubmit)}>
+        <Typography sx={{ textAlign: "center" }} variant="h1">
+          Sign In
+        </Typography>
+        <Typography sx={{ textAlign: "center" }} variant="h5">
+          Sign into your Account
+        </Typography>
+        <Box
+          component={"img"}
+          src={SigninImage}
+          sx={{
+            width: "100%",
+            height: 300,
+            textAlign: "center",
+            my: 2,
+            borderRadius: "3%",
+          }}
+          alt="sign in image of planner"
+        />
+
+        <Box
+          sx={{ height: "100%" }}
+          component={"form"}
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <Controller
             name="username"
             control={control}
@@ -86,13 +108,9 @@ const Login = () => {
             Login
           </Button>
         </Box>
-        <Box component={"div"}>
+        <Box sx={{ my: 2 }} component={"div"}>
           <Typography variant="body2">
             Don't have an account? <Link to={"/sign-up"}>Sign Up</Link>
-          </Typography>
-          <Typography variant="body2">
-            Forgot your password ?{" "}
-            <Link to={"/reset-password"}>Reset password</Link>
           </Typography>
         </Box>
       </Box>

@@ -11,26 +11,35 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { useLoaderData, useParams } from "react-router-dom";
+import {
+  useLoaderData,
+  useLocation,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import AuthContext from "../context/AuthProvider";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useContext, useState } from "react";
+import Fab from "@mui/material/Fab";
+import AddIcon from "@mui/icons-material/Add";
+import { useContext, useEffect, useState } from "react";
 import axiosInstance from "../api/axios";
 import Divider from "@mui/material/Divider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, redirect } from "react-router-dom";
 
 export default function PostDetail() {
   const postsData = useLoaderData();
-
+  const { project_id } = useParams();
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
-  const { project_id } = useParams;
-
-  const [editTarget, setEditTarget] = useState();
 
   const cardSxStyle = {
     maxWidth: 475,
     minWidth: 300,
+  };
+
+  const fabStyle = {
+    position: "absolute",
+    bottom: "40%",
+    right: "5%",
   };
 
   return (
@@ -44,7 +53,7 @@ export default function PostDetail() {
         columnSpacing={{ xs: 1, sm: 2, md: 3 }}
         sx={{ width: "100%" }}
       >
-        {postsData.map((post, index) => {
+        {postsData.map((post) => {
           return (
             <Grid item xs={12} sm={6} md={4} lg={3} sx={{ mx: 0 }}>
               <Card sx={cardSxStyle} aria-label="user-post" key={post.id}>
@@ -98,9 +107,8 @@ export default function PostDetail() {
                     <IconButton
                       aria-label="edit post"
                       onClick={() => {
-                        setEditTarget(post.id);
                         navigate(
-                          `projects/${project_id}/posts/${editTarget}/update`
+                          `/projects/${project_id}/posts/${post.id}/update`
                         );
                       }}
                     >
@@ -113,11 +121,24 @@ export default function PostDetail() {
           );
         })}
       </Grid>
+      <Fab
+        sx={{ alignItems: "center", ...fabStyle }}
+        color="seconprimarydary"
+        aria-label="add"
+        onClick={() => {
+          navigate(`/projects/${project_id}/posts/create/`);
+        }}
+      >
+        <AddIcon />
+      </Fab>
     </Box>
   );
 }
 
-export const postsLoader = async () => {
-  const response = await axiosInstance.get("posts/");
+export const postsByProjectLoader = async ({ params }) => {
+  const response = await axiosInstance.get(
+    `special/${params.project_id}/posts/`
+  );
+
   return response.data;
 };

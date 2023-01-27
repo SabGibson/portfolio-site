@@ -11,7 +11,7 @@ import SiteNav from "./components/siteNav";
 import Register from "./pages/Register";
 import PostDetail from "./pages/PostDetail";
 import { projectsLoader } from "./pages/Home";
-import { postsLoader } from "./pages/PostDetail";
+import { postsByProjectLoader } from "./pages/PostDetail";
 import Error from "./pages/Error";
 import MakePost from "./pages/MakePost";
 import MakeProject from "./pages/MakeProject";
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
       <Route path="sign-up" element={<Register />} />
       <Route
         path="projects/:project_id/posts/"
-        loader={postsLoader}
+        loader={postsByProjectLoader}
         element={<PostDetail />}
       />
       <Route path="projects/:project_id/posts/create/" element={<MakePost />} />

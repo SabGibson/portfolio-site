@@ -3,6 +3,8 @@ from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.mixins import CreateModelMixin, RetrieveModelMixin, UpdateModelMixin
 from .models import *
 from .serializers import *
+from rest_framework import filters
+from rest_framework import generics
 # Create your views here.
 
 
@@ -62,3 +64,12 @@ class PostImageViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'post_id': self.kwargs['post_pk']}
+
+
+class PostByproject(ModelViewSet):
+
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        project_id = self.kwargs['pk']
+        return Post.objects.filter(project_id=project_id)
