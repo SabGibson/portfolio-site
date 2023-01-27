@@ -48,6 +48,9 @@ const UpdatePost = () => {
         sx={{ disply: "flex", justifyContent: "center" }}
         className="PageForm"
       >
+        <Typography sx={{ alignText: "start", mt: 2 }} variant="h5">
+          Update exisitng post!
+        </Typography>
         <Box
           component={"div"}
           sx={{
@@ -103,9 +106,6 @@ const UpdatePost = () => {
             >
               Create
             </Button>
-            <Typography sx={{ alignText: "start", mt: 2 }} variant="h5">
-              Update exisitng post!
-            </Typography>
           </Box>
         </Box>
       </Box>

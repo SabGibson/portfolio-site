@@ -126,7 +126,6 @@ const SiteNav = () => {
   const mainSxStyle = {
     mt: "100px",
     display: "flex",
-    border: "solid 3px blue" /*remove after development*/,
     width: "100%",
     justifyContent: "center",
     ...(open && {

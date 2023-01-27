@@ -42,11 +42,20 @@ export default function PostDetail() {
     right: "5%",
   };
 
+  const lenPostData = Boolean(postsData.lenght);
   return (
     <Box
       component={"div"}
-      sx={{ display: "flex", justifyContent: "center", p: 2 }}
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        p: 2,
+      }}
     >
+      <Typography sx={{ textAlign: "center", width: "100%" }} variant="h4">
+        Post for project {project_id}
+      </Typography>
       <Grid
         container
         spacing={3}

@@ -48,6 +48,9 @@ export default function Home() {
           component={"div"}
           sx={{ display: "flex", flexDirection: "column" }}
         >
+          <Typography sx={{ textAlign: "center", width: "100%" }} variant="h4">
+            Project Home
+          </Typography>
           {
             <Grid sx={{ maxWidth: "90%" }} spacing={5} container>
               {projectsData.map((project) => {

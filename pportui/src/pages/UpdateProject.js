@@ -50,6 +50,9 @@ const UpdateProject = () => {
             flexDirection: "column",
           }}
         >
+          <Typography sx={{ alignText: "start", mt: 2 }} variant="h5">
+            Update existing project!
+          </Typography>
           <Box
             sx={{ width: "50%", p: 2 }}
             component={"form"}
@@ -96,9 +99,6 @@ const UpdateProject = () => {
             >
               Create
             </Button>
-            <Typography sx={{ alignText: "start", mt: 2 }} variant="h5">
-              Update existing project!
-            </Typography>
           </Box>
         </Box>
       </Box>

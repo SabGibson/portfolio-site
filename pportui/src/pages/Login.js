@@ -61,10 +61,10 @@ const Login = () => {
           src={SigninImage}
           sx={{
             width: "100%",
-            height: 300,
             textAlign: "center",
             my: 2,
-            borderRadius: "3%",
+            mx: "auto",
+            borderRadius: "1%",
           }}
           alt="sign in image of planner"
         />
