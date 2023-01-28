@@ -7,7 +7,7 @@ from core.views import LogoutAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api", include('portfolio.urls')),
+    path("api/", include('portfolio.urls')),
     path("auth/", include('djoser.urls')),
     path("auth/", include('djoser.urls.jwt')),
     path('logout/', LogoutAPIView.as_view()),
