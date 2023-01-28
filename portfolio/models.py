@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from .validators import validate_file_size, validate_document_size
+from django.core.validators import FileExtensionValidator
 # Create your models here.
 
 
@@ -15,9 +17,9 @@ class Profile(models.Model):
 
 
 class ProfileImage(models.Model):
-    profile = models.ForeignKey(
+    profile = models.OneToOneField(
         Profile, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField('profile/images')
+    image = models.ImageField(upload_to='profile/images', validators=[validate_file_size])
 
 
 class Project(models.Model):
@@ -39,7 +41,7 @@ class Project(models.Model):
 class ProjectImage(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField('project/images')
+    image = models.ImageField(upload_to='project/images',validators=[validate_file_size])
 
 
 class Post(models.Model):
@@ -66,7 +68,12 @@ class Post(models.Model):
 class PostImage(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField('post/images')
+    image = models.ImageField(upload_to='post/images',validators=[validate_file_size])
+
+class PostFile(models.Model):
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name='files')
+    file = models.FileField(upload_to='post/files',validators=[validate_document_size,FileExtensionValidator(allowed_extensions=['pdf','py','xls','js','doc','txt'])])
 
 
 class Comment(models.Model):

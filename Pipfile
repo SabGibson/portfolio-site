@@ -22,6 +22,7 @@ whitenoise = "*"
 dj-database-url = "*"
 django-heroku = "*"
 python-decouple = "*"
+django-rest-framework-nested = "*"
 
 [dev-packages]
 pytest-watch = "*"

@@ -48,6 +48,16 @@ class PostImageSerializer(serializers.ModelSerializer):
         model = PostImage
         fields = ['id', 'image']
 
+class PostFileSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        post_id = self.context['post_id']
+        return PostFile.objects.create(post_id=post_id, **validated_data)
+
+    class Meta:
+        model = PostFile
+        fields = ['id', 'image','alt']
+
 
 class CommentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
@@ -64,11 +74,13 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
     images = PostImageSerializer(many=True, read_only=True)
-
+    author = ProfileSerializer(read_only=True)
+    files = PostFileSerializer(many=True,read_only=True)
+    
     class Meta:
         model = Post
         fields = ['id', 'images', 'project', 'title', 'content',
-                  'created_on', 'updated_at', 'author', 'like_count', 'images']
+                  'created_on', 'updated_at', 'author', 'like_count', 'images','comments']
 
     like_count = serializers.SerializerMethodField(method_name='likes_count')
 

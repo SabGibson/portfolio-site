@@ -22,7 +22,8 @@ class ProjectViewSet(ModelViewSet):
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.select_related('project').prefetch_related(
-        'images').prefetch_related('comments').all()
+        'author').prefetch_related(
+        'images').prefetch_related('files').prefetch_related('comments').all()
 
 
 class CommentsViewSet(ModelViewSet):
@@ -64,6 +65,16 @@ class PostImageViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'post_id': self.kwargs['post_pk']}
+
+class PostFileViewSet(ModelViewSet):
+    serializer_class = PostFileSerializer
+
+    def get_queryset(self):
+        return PostFile.objects.filter(post_id=self.kwargs['post_pk'])
+
+    def get_serializer_context(self):
+        return {'post_id': self.kwargs['post_pk']}
+
 
 
 class PostByproject(ModelViewSet):
