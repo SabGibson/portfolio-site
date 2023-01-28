@@ -1,1 +1,1 @@
-web: gunicorn pportapi.wsgi -log-file -
+web: gunicorn pportapi.wsgi
