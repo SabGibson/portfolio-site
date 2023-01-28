@@ -20,6 +20,8 @@ faker = "*"
 gunicorn = "*"
 whitenoise = "*"
 dj-database-url = "*"
+django-heroku = "*"
+python-decouple = "*"
 
 [dev-packages]
 pytest-watch = "*"
