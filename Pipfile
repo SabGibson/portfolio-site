@@ -22,7 +22,6 @@ whitenoise = "*"
 dj-database-url = "*"
 django-heroku = "*"
 python-decouple = "*"
-django-rest-framework-nested = "*"
 install = "*"
 django-ckeditor = "*"
 
