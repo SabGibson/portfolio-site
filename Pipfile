@@ -23,6 +23,8 @@ dj-database-url = "*"
 django-heroku = "*"
 python-decouple = "*"
 django-rest-framework-nested = "*"
+install = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 pytest-watch = "*"

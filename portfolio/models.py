@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from .validators import validate_file_size, validate_document_size
 from django.core.validators import FileExtensionValidator
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -86,7 +87,7 @@ class Comment(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="comments")
-    content = models.CharField(max_length=255)
+    content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=1, choices=COMMENT_STATUS_CHOICES, default='P')
