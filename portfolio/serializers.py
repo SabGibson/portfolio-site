@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from core.serializers import UserSerializer
 
 
 class ProfileImageSerializer(serializers.ModelSerializer):
@@ -32,7 +33,7 @@ class ProjectImageSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     images = ProfileImageSerializer(many=True, read_only=True)
-
+    creator =  UserSerializer(read_only=True)
     class Meta:
         model = Project
         fields = ['id', 'title', 'description',
@@ -74,13 +75,13 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
     images = PostImageSerializer(many=True, read_only=True)
-    author = ProfileSerializer(read_only=True)
+    author = UserSerializer(read_only=True)
     files = PostFileSerializer(many=True,read_only=True)
     
     class Meta:
         model = Post
-        fields = ['id', 'images', 'project', 'title', 'content',
-                  'created_on', 'updated_at', 'author', 'like_count', 'images','comments']
+        fields = ['id', 'images','files', 'project', 'title', 'content',
+                  'created_on', 'updated_at', 'author', 'like_count','comments']
 
     like_count = serializers.SerializerMethodField(method_name='likes_count')
 

@@ -18,12 +18,18 @@ class ProjectViewSet(ModelViewSet):
         'creator').prefetch_related('images').all()
     serializer_class = ProjectSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
 
 class PostViewSet(ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.select_related('project').prefetch_related(
         'author').prefetch_related(
         'images').prefetch_related('files').prefetch_related('comments').all()
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
 
 
 class CommentsViewSet(ModelViewSet):

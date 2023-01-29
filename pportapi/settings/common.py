@@ -116,7 +116,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-DATETIME_FORMAT = "%d-%m-%Y %H:%M:%S"
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -136,6 +136,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
+    'DATETIME_FORMAT' : "%d-%m-%Y %H:%M:%S",
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ), 'DEFAULT_PERMISSION_CLASSES': [
