@@ -9,11 +9,13 @@ import AuthContext from "../context/AuthProvider";
 import { useContext } from "react";
 import axiosInstance from "../api/axios";
 import SigninImage from "../assets/planning_tools.jpg";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/user";
 
 const Login = () => {
   const navigate = useNavigate();
   const { setAuth } = useContext(AuthContext);
-
+  const dispatch = useDispatch()
   const {
     register,
     control,
@@ -22,27 +24,38 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    axiosInstance
-      .post("auth/jwt/create/", {
-        username: data.username,
-        password: data.password,
-      })
-      .then((res) => {
-        localStorage.setItem("access_token", res.data.access);
-        localStorage.setItem("refresh_token", res.data.refresh);
-        axiosInstance.defaults.headers["Authorization"] =
-          "JWT " + localStorage.getItem("access_token");
-        console.log(res.data);
-        setAuth({ authed: true });
-        navigate("/projects/");
-      })
-      .catch((err) => {
-        console.log(err?.message);
-      });
-  };
 
+  const loginAction = async (data) =>{
+    
+    const tokens = await axiosInstance
+    .post("auth/jwt/create/", {
+      username: data.username,
+      password: data.password,
+    })
+
+    localStorage.setItem("access_token", tokens.data.access);
+    localStorage.setItem("refresh_token", tokens.data.refresh);
+
+    if (tokens) {
+
+      const user = await axiosInstance
+      .get("auth/users/me/")
+
+      dispatch(loginUser(res.data))
+      console.log(200)
+      navigate('/projects/')
+
+    } else {
+
+      console.log(400)
+      return 400
+
+    }
+
+  }
+
+
+  
   return (
     <Container sx={{ disply: "flex", justifyContent: "center" }}>
       <Box
@@ -72,7 +85,7 @@ const Login = () => {
         <Box
           sx={{ height: "100%" }}
           component={"form"}
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(loginAction)}
         >
           <Controller
             name="username"

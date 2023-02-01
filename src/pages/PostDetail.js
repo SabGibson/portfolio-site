@@ -84,10 +84,10 @@ export default function PostDetail() {
                       sx={{ height: "40px", width: "40px" }}
                       alt="author-avatar"
                     >
-                      {post.author}
+                      {post.author.username.slice(0,2)}
                     </Avatar>
                   }
-                  title={post.author}
+                  title={post.author.username}
                   subheader={post.created_on}
                 />
                 <CardContent>
@@ -146,7 +146,7 @@ export default function PostDetail() {
 
 export const postsByProjectLoader = async ({ params }) => {
   const response = await axiosInstance.get(
-    `special/${params.project_id}/posts/`
+    `api/special/${params.project_id}/posts/`
   );
 
   return response.data;

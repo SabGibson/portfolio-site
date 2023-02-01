@@ -32,6 +32,8 @@ import { useTheme } from "@mui/material/styles";
 import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
 import Container from "@mui/material/Container";
 import axiosInstance from "../api/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../redux/user";
 const drawerWidth = 240;
 
 const SiteNav = () => {
@@ -39,6 +41,8 @@ const SiteNav = () => {
   const navigate = useNavigate();
 
   const isLoggedin = Boolean(localStorage.getItem("access_token"));
+  const dispatch = useDispatch()
+  const {user} = useSelector((state)=>state.account)
 
   const account = {
     displayName: "Test User",
@@ -46,6 +50,7 @@ const SiteNav = () => {
     profilePicture: false,
     profilePath: "path",
   };
+
   const theme = useTheme;
   const [open, setOpen] = useState(false);
 
@@ -66,9 +71,10 @@ const SiteNav = () => {
       localStorage.removeItem("refresh_token");
       axiosInstance.defaults.headers["Authorization"] = null;
       setAuth({ authed: false, userAccount: null });
-      navigate("/login");
+      dispatch(logoutUser)
+      navigate("/login/");
     } else {
-      navigate("/login");
+      navigate("/login/");
     }
   };
 
@@ -120,7 +126,7 @@ const SiteNav = () => {
   const avatarSxStyle = {
     height: 60,
     width: 60,
-    background: "grey",
+    background: "#2596be",
   };
 
   const mainSxStyle = {
@@ -219,18 +225,13 @@ const SiteNav = () => {
                 avatar={
                   <Avatar
                     sx={avatarSxStyle}
-                    alt="profile-picture"
-                    src={
-                      account.profilePicture
-                        ? account.profilePath
-                        : DefaultProfilePic
-                    }
+                    alt="profile-avatar"
                   >
-                    {account.displayName[0]}
+                    {"auth.username.slice(0,2)"}
                   </Avatar>
                 }
-                title={account.displayName}
-                subheader={account.username}
+                title={auth.first_name}
+                subheader={`@${auth.username}`}
               />
               <CardActions
                 sx={{ display: "flex", justifyContent: "space-between" }}

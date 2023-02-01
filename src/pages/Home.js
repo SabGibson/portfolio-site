@@ -23,8 +23,8 @@ import { useLoaderData, useNavigate, redirect } from "react-router-dom";
 import Login from "./Login";
 
 export default function Home() {
-  const { auth, setAuth } = useContext(AuthContext);
 
+  const userReady = Boolean(localStorage.getItem("current_user"))
   const navigate = useNavigate();
   const projectsData = useLoaderData();
 
@@ -42,8 +42,8 @@ export default function Home() {
 
   return (
     <Box>
-      {!auth.authed && <Login />}
-      {auth.authed && (
+      {!userReady && <Login />}
+      {userReady && (
         <Box
           component={"div"}
           sx={{ display: "flex", flexDirection: "column" }}
@@ -59,7 +59,7 @@ export default function Home() {
                     <Card sx={{ minWidth: 200 }}>
                       <CardActionArea
                         onClick={() => {
-                          navigate(`/projects/${project.id}/posts/`);
+                          navigate(`api/projects/${project.id}/posts/`);
                         }}
                         aria-label="navigate to project posts on click"
                       >
@@ -78,10 +78,10 @@ export default function Home() {
                               sx={{ height: "40px", width: "40px" }}
                               alt="author-avatar"
                             >
-                              {project.creator[0]}
+                              {"project.creator.username"}
                             </Avatar>
                           }
-                          title={project.creator}
+                          title={project.creator.username}
                           subheader={project.created_on}
                         />
                         <CardContent>
@@ -104,7 +104,7 @@ export default function Home() {
                           <IconButton
                             aria-label="delete post"
                             onClick={() => {
-                              axiosInstance.delete(`/projects/${project.id}/`);
+                              axiosInstance.delete(`api/projects/${project.id}/`);
                               navigate(`/`);
                             }}
                           >
@@ -144,6 +144,6 @@ export default function Home() {
 }
 
 export const projectsLoader = async () => {
-  const response = await axiosInstance.get("projects/");
+  const response = await axiosInstance.get("api/projects/");
   return response.data;
 };
