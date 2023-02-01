@@ -17,14 +17,12 @@ import {
   useParams,
   useSearchParams,
 } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import { useContext, useEffect, useState } from "react";
 import axiosInstance from "../api/axios";
 import Divider from "@mui/material/Divider";
-import { useNavigate, redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function PostDetail() {
   const postsData = useLoaderData();
@@ -42,7 +40,6 @@ export default function PostDetail() {
     right: "5%",
   };
 
-  const lenPostData = Boolean(postsData.lenght);
   return (
     <Box
       component={"div"}
@@ -84,7 +81,7 @@ export default function PostDetail() {
                       sx={{ height: "40px", width: "40px" }}
                       alt="author-avatar"
                     >
-                      {post.author.username.slice(0,2)}
+                      {post.author.username.slice(0, 2)}
                     </Avatar>
                   }
                   title={post.author.username}

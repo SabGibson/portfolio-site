@@ -5,8 +5,6 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthProvider";
-import { useContext } from "react";
 import axiosInstance from "../api/axios";
 import SigninImage from "../assets/planning_tools.jpg";
 import { useDispatch } from "react-redux";
@@ -14,8 +12,8 @@ import { loginUser } from "../redux/user";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
   const {
     register,
     control,
@@ -24,38 +22,26 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-
-  const loginAction = async (data) =>{
-    
-    const tokens = await axiosInstance
-    .post("auth/jwt/create/", {
+  const loginAction = async (data) => {
+    const tokens = await axiosInstance.post("auth/jwt/create/", {
       username: data.username,
       password: data.password,
-    })
+    });
 
     localStorage.setItem("access_token", tokens.data.access);
     localStorage.setItem("refresh_token", tokens.data.refresh);
 
     if (tokens) {
-
-      const user = await axiosInstance
-      .get("auth/users/me/")
-
-      dispatch(loginUser(res.data))
-      console.log(200)
-      navigate('/projects/')
-
+      const account = await axiosInstance.get("auth/users/me/");
+      dispatch(loginUser(account.data));
+      console.log(200);
+      navigate("/projects/");
     } else {
-
-      console.log(400)
-      return 400
-
+      console.log(400);
+      return 400;
     }
+  };
 
-  }
-
-
-  
   return (
     <Container sx={{ disply: "flex", justifyContent: "center" }}>
       <Box

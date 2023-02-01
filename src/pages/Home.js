@@ -17,17 +17,17 @@ import Divider from "@mui/material/Divider";
 import axiosInstance from "../api/axios";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import AuthContext from "../context/AuthProvider";
-import { useContext, useEffect, useState } from "react";
-import { useLoaderData, useNavigate, redirect } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Login from "./Login";
+import { useSelector } from "react-redux";
 
 export default function Home() {
-
-  const userReady = Boolean(localStorage.getItem("current_user"))
   const navigate = useNavigate();
   const projectsData = useLoaderData();
+  const { userAccount } = useSelector((state) => state.reducer.user);
 
+  console.log(userAccount);
+  const userReady = Boolean(userAccount);
   const cardSxStyle = {
     maxWidth: 500,
     minWidth: 275,
@@ -104,7 +104,9 @@ export default function Home() {
                           <IconButton
                             aria-label="delete post"
                             onClick={() => {
-                              axiosInstance.delete(`api/projects/${project.id}/`);
+                              axiosInstance.delete(
+                                `api/projects/${project.id}/`
+                              );
                               navigate(`/`);
                             }}
                           >

@@ -2,8 +2,7 @@ import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Logo from "../assets/logo.svg";
-import { useState, useContext, useEffect } from "react";
-import AuthContext from "../context/AuthProvider";
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import DefaultProfilePic from "../assets/anon_user.png";
 import Drawer from "@mui/material/Drawer";
@@ -25,9 +24,6 @@ import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
-import NoteIcon from "@mui/icons-material/Note";
-import BadgeIcon from "@mui/icons-material/Badge";
 import { useTheme } from "@mui/material/styles";
 import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
 import Container from "@mui/material/Container";
@@ -37,12 +33,12 @@ import { logoutUser } from "../redux/user";
 const drawerWidth = 240;
 
 const SiteNav = () => {
-  const { auth, setAuth } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const isLoggedin = Boolean(localStorage.getItem("access_token"));
-  const dispatch = useDispatch()
-  const {user} = useSelector((state)=>state.account)
+  const dispatch = useDispatch();
+  const { userAccount } = useSelector((state) => state.reducer.user);
+  const authedAccount = Boolean(userAccount);
 
   const account = {
     displayName: "Test User",
@@ -63,15 +59,14 @@ const SiteNav = () => {
   };
 
   const LogoutCall = () => {
-    if (auth) {
+    if (true) {
       const response = axiosInstance.post("logout/", {
         refresh_token: localStorage.getItem("refresh_token"),
       });
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       axiosInstance.defaults.headers["Authorization"] = null;
-      setAuth({ authed: false, userAccount: null });
-      dispatch(logoutUser)
+      dispatch(logoutUser);
       navigate("/login/");
     } else {
       navigate("/login/");
@@ -223,15 +218,12 @@ const SiteNav = () => {
             >
               <CardHeader
                 avatar={
-                  <Avatar
-                    sx={avatarSxStyle}
-                    alt="profile-avatar"
-                  >
+                  <Avatar sx={avatarSxStyle} alt="profile-avatar">
                     {"auth.username.slice(0,2)"}
                   </Avatar>
                 }
-                title={auth.first_name}
-                subheader={`@${auth.username}`}
+                title={"UserName"}
+                subheader={`DisplayName`}
               />
               <CardActions
                 sx={{ display: "flex", justifyContent: "space-between" }}

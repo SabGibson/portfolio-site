@@ -10,8 +10,6 @@ import { useParams } from "react-router-dom";
 import ProjectImage from "../assets/make_project.jpg";
 
 const MakePost = () => {
-  const navigate = useNavigate();
-
   const { project_id } = useParams();
 
   const {
