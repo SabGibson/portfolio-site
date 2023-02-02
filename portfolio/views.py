@@ -29,7 +29,7 @@ class PostViewSet(ModelViewSet):
         'images').prefetch_related('files').prefetch_related('comments').all()
 
     def perform_create(self, serializer):
-        serializer.save(creator=self.request.user)
+        serializer.save(author=self.request.user)
 
 
 class CommentsViewSet(ModelViewSet):
@@ -72,6 +72,7 @@ class PostImageViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {'post_id': self.kwargs['post_pk']}
 
+
 class PostFileViewSet(ModelViewSet):
     serializer_class = PostFileSerializer
 
@@ -80,7 +81,6 @@ class PostFileViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'post_id': self.kwargs['post_pk']}
-
 
 
 class PostByproject(ModelViewSet):
