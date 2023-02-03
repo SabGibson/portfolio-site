@@ -26,7 +26,6 @@ export default function Home() {
   const projectsData = useLoaderData();
   const { userAccount } = useSelector((state) => state.reducer.user);
 
-  console.log(userAccount);
   const userReady = Boolean(userAccount);
   const cardSxStyle = {
     maxWidth: 500,
@@ -115,7 +114,6 @@ export default function Home() {
                           <IconButton
                             aria-label="edit post"
                             onClick={() => {
-                              console.log(project.id);
                               navigate(`/projects/${project.id}/`);
                             }}
                           >

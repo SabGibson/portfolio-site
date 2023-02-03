@@ -23,9 +23,10 @@ const MakePost = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    console.log(userAccount);
     axiosInstance.post("api/posts/", {
-      author: userAccount,
-      project: 1,
+      author: userAccount.id,
+      project: "1",
       title: "data.title",
       content: "data.content",
     });
