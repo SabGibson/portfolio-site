@@ -59,7 +59,7 @@ export default function Home() {
                     <Card sx={{ minWidth: 200 }}>
                       <CardActionArea
                         onClick={() => {
-                          navigate(`api/projects/${project.id}/posts/`);
+                          navigate(`/projects/${project.id}/posts/`);
                         }}
                         aria-label="navigate to project posts on click"
                       >

@@ -8,9 +8,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import { useParams } from "react-router-dom";
 import ProjectImage from "../assets/make_project.jpg";
+import { useSelector } from "react-redux";
 
 const MakePost = () => {
   const { project_id } = useParams();
+  const { userAccount } = useSelector((state) => state.reducer.user);
 
   const {
     register,
@@ -21,20 +23,12 @@ const MakePost = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    axiosInstance
-      .get("auth/users/me/")
-      .then((res) => {
-        console.log(res);
-        axiosInstance.post("posts/", {
-          author: res.data.id,
-          project: project_id,
-          title: data.title,
-          content: data.content,
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    axiosInstance.post("api/posts/", {
+      author: userAccount,
+      project: 1,
+      title: "data.title",
+      content: "data.content",
+    });
   };
 
   return (

@@ -7,10 +7,11 @@ import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import ProjectImage from "../assets/make_project.jpg";
+import { useSelector } from "react-redux";
 
 const MakeProject = () => {
   const navigate = useNavigate();
-
+  const { userAccount } = useSelector((state) => state.reducer.user);
   const {
     register,
     control,
@@ -20,18 +21,12 @@ const MakeProject = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    axiosInstance
-      .get("auth/users/me/")
-      .then((res) => {
-        axiosInstance.post(`projects/`, {
-          creator: res.data.id,
-          title: "dummy Title made to check post",
-          description: "dummy Title made to check post again",
-        });
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+    axiosInstance.post("api/projects/", {
+      creator: userAccount,
+      title: data.title,
+      description: data.content,
+    });
+    navigate("/projects/");
   };
 
   return (
