@@ -10,11 +10,16 @@ import DefaultBg from "../assets/default_bg.jpg";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import ArticleIcon from "@mui/icons-material/Article";
 import EditIcon from "@mui/icons-material/Edit";
 import axiosInstance from "../api/axios";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import ImageList from "@mui/material/ImageList";
+import ImageListItem from "@mui/material/ImageListItem";
 import { useState } from "react";
 
 const PostCard = ({ post, project_id, key }) => {
@@ -58,9 +63,8 @@ const PostCard = ({ post, project_id, key }) => {
   };
 
   const navigate = useNavigate();
-
   return (
-    <Box componant={"div"}>
+    <Box componant={"div"} sx={{ flex: "1 1 0px" }}>
       <Card sx={cardSxStyle} aria-label="user-post" key={key}>
         <CardMedia
           component={"img"}
@@ -173,10 +177,65 @@ const PostCard = ({ post, project_id, key }) => {
           </ExpandMore>
         </CardActions>
         <CardHeader subheader="Attachments" />
+        <CardContent>
+          {post.files.length > 0 ? (
+            post.files.map((file) => {
+              return (
+                <IconButton sx={{ display: "flex", flexDirection: "column" }}>
+                  <ArticleIcon />
+                  <Typography>`attachment#${file.id}`</Typography>
+                </IconButton>
+              );
+            })
+          ) : (
+            <Typography> No attchements</Typography>
+          )}
+          <IconButton aria-label="attach file">
+            <AttachFileIcon />
+          </IconButton>
+        </CardContent>
         <Divider />
         <CardHeader subheader="Images" />
+        <CardContent>
+          {post.images.length > 0 ? (
+            <ImageList variant="masonry" cols={3} gap={8}>
+              {post.images.map((image) => {
+                <ImageListItem key={image.id}>
+                  <img
+                    src={`${image.image}?w=248&fit=crop&auto=format`}
+                    srcSet={`${image.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={image.alt}
+                    loading="lazy"
+                  />
+                </ImageListItem>;
+              })}
+            </ImageList>
+          ) : (
+            <Typography> No images</Typography>
+          )}
+          <IconButton aria-label="attach image">
+            <AddPhotoAlternateIcon />
+          </IconButton>
+        </CardContent>
         <Divider />
         <CardHeader subheader="Comments" />
+        <CardContent>
+          {post.comments.length > 0 ? (
+            post.comments.map((comment) => {
+              return (
+                <IconButton sx={{ display: "flex", flexDirection: "column" }}>
+                  <ArticleIcon />
+                  <Typography>`attachment#${comment.id}`</Typography>
+                </IconButton>
+              );
+            })
+          ) : (
+            <Typography> No comments</Typography>
+          )}
+          <IconButton aria-label="attach file">
+            <AttachFileIcon />
+          </IconButton>
+        </CardContent>
       </Card>
     </Box>
   );
