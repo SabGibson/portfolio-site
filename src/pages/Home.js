@@ -35,6 +35,7 @@ export default function Home() {
     m: 1,
     p: 1,
     flex: "1 1 0px",
+    boxShadow: 15,
   };
 
   const fabStyle = {
