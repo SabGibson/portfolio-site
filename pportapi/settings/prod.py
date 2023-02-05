@@ -14,9 +14,7 @@ DATABASES = {
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dsk6u4n3g',
-    'API_KEY': os.environ['API_KEY'],
-    'API_SECRET': os.environ['API_SECRET'],
+    'CLOUDINARY_URL': os.environ['CLOUDINARY_URL']
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'

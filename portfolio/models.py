@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from .validators import validate_file_size, validate_document_size
 from django.core.validators import FileExtensionValidator
+from cloudinary_storage.storage import MediaCloudinaryStorage
 # Create your models here.
 
 
@@ -20,7 +21,7 @@ class ProfileImage(models.Model):
     profile = models.OneToOneField(
         Profile, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(
-        upload_to='profile/images', validators=[validate_file_size])
+        upload_to='profile/images', validators=[validate_file_size], storage=MediaCloudinaryStorage())
 
 
 class Project(models.Model):
@@ -46,7 +47,7 @@ class ProjectImage(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(
-        upload_to='project/images', validators=[validate_file_size])
+        upload_to='project/images', validators=[validate_file_size], storage=MediaCloudinaryStorage())
 
 
 class Post(models.Model):
@@ -74,7 +75,7 @@ class PostImage(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='post/images',
-                              validators=[validate_file_size])
+                              validators=[validate_file_size], storage=MediaCloudinaryStorage())
     alt = models.CharField(max_length=255, null=True)
 
 
