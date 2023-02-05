@@ -24,7 +24,7 @@ posts_router = routers.NestedDefaultRouter(router, 'posts', lookup='post')
 posts_router.register('images', views.PostImageViewSet, basename='post-images')
 posts_router.register('comments', views.CommentsViewSet,
                       basename='post-comments')
-posts_router.register('files', views.CommentsViewSet,
+posts_router.register('files', views.PostFileViewSet,
                       basename='post-files')
 urlpatterns = [
 
