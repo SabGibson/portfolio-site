@@ -16,11 +16,13 @@ import axiosInstance from "../api/axios";
 import Divider from "@mui/material/Divider";
 import { useNavigate } from "react-router-dom";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AttachFileIcon from "@mui/icons-material/AttachFile";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import { randomColor } from "../components/colorGen";
 import { useState } from "react";
+import CommentsSection from "./commentsForm";
+import UploadFileForm from "./uploadForm";
 
 const PostCard = ({ post, project_id, key }) => {
   const [expanded, setExpanded] = useState(false);
@@ -52,7 +54,7 @@ const PostCard = ({ post, project_id, key }) => {
     position: "relative",
     background: "#EDEDED",
     top: -412,
-    height: "100%",
+    height: "60%",
     m: 1,
     p: 1,
     flex: "1 1 0px",
@@ -151,7 +153,7 @@ const PostCard = ({ post, project_id, key }) => {
               aria-label="delete post"
               onClick={() => {
                 axiosInstance.delete(`api/posts/${post.id}/`);
-                navigate(`/projects/${project_id}/posts/`);
+                navigate(0);
               }}
             >
               <DeleteIcon />
@@ -160,6 +162,7 @@ const PostCard = ({ post, project_id, key }) => {
               aria-label="edit post"
               onClick={() => {
                 navigate(`/projects/${project_id}/posts/${post.id}/update`);
+                navigate(0);
               }}
             >
               <EditIcon icon_id={post.id} />
@@ -167,74 +170,97 @@ const PostCard = ({ post, project_id, key }) => {
           </Box>
           <ExpandMore
             expand={expanded}
-            onClick={(e) => {
+            onClick={() => {
               setExpanded(!expanded);
             }}
             aria-expanded={expanded}
-            aria-label="show more"
+            aria-label="show less"
           >
             <ExpandMoreIcon />
           </ExpandMore>
         </CardActions>
         <CardHeader subheader="Attachments" />
-        <CardContent>
+        <CardContent
+          sx={{
+            display: "flex",
+            flex: "1 1 0px",
+            justifyContent: "space-between",
+            p: 3,
+          }}
+        >
+          <UploadFileForm post_id={post.id} />
           {post.files.length > 0 ? (
             post.files.map((file) => {
               return (
-                <IconButton sx={{ display: "flex", flexDirection: "column" }}>
-                  <ArticleIcon />
-                  <Typography>`attachment#${file.id}`</Typography>
-                </IconButton>
+                <Typography
+                  component="a"
+                  href={file.file}
+                  sx={{ fontSize: ".8rem" }}
+                  variant="body2"
+                >
+                  attachment#{file.id}
+                </Typography>
               );
             })
           ) : (
             <Typography> No attchements</Typography>
           )}
-          <IconButton aria-label="attach file">
-            <AttachFileIcon />
-          </IconButton>
         </CardContent>
-        <Divider />
-        <CardHeader subheader="Images" />
-        <CardContent>
-          {post.images.length > 0 ? (
-            <ImageList variant="masonry" cols={3} gap={8}>
-              {post.images.map((image) => {
-                <ImageListItem key={image.id}>
-                  <img
-                    src={`${image.image}?w=248&fit=crop&auto=format`}
-                    srcSet={`${image.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={image.alt}
-                    loading="lazy"
-                  />
-                </ImageListItem>;
-              })}
-            </ImageList>
-          ) : (
-            <Typography> No images</Typography>
-          )}
-          <IconButton aria-label="attach image">
-            <AddPhotoAlternateIcon />
-          </IconButton>
-        </CardContent>
+
         <Divider />
         <CardHeader subheader="Comments" />
         <CardContent>
           {post.comments.length > 0 ? (
-            post.comments.map((comment) => {
-              return (
-                <IconButton sx={{ display: "flex", flexDirection: "column" }}>
-                  <ArticleIcon />
-                  <Typography>`attachment#${comment.id}`</Typography>
-                </IconButton>
-              );
-            })
+            <Box
+              componant="div"
+              sx={{
+                width: "100%",
+                height: "100%",
+                maxHeight: "274px",
+                mx: "auto",
+                display: "flex",
+                justifyContent: "flex-start",
+                overflowY: "scroll",
+                mb: 2,
+              }}
+            >
+              <List sx={{ width: "100%" }}>
+                {post.comments.map((comment) => {
+                  return (
+                    <ListItem alignItems="flex-start" sx={{ p: 0.5 }}>
+                      <Avatar
+                        sx={{
+                          width: "40px",
+                          height: "40px",
+                          background: randomColor,
+                          border: "1px solid black",
+                        }}
+                      >
+                        {comment.author.username.slice(0, 2)}
+                      </Avatar>
+                      <ListItemText
+                        sx={{ ml: 2 }}
+                        primary={comment.content}
+                        secondary={
+                          <Typography
+                            sx={{ display: "inline" }}
+                            component="span"
+                            variant="body2"
+                            color="text.primary"
+                          >
+                            {comment.created_on}
+                          </Typography>
+                        }
+                      />
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </Box>
           ) : (
             <Typography> No comments</Typography>
           )}
-          <IconButton aria-label="attach file">
-            <AttachFileIcon />
-          </IconButton>
+          <CommentsSection post_id={post.id} />
         </CardContent>
       </Card>
     </Box>

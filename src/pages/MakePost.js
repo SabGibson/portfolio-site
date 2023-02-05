@@ -31,6 +31,7 @@ const MakePost = () => {
       content: data.content,
     });
     navigate(`/projects/${project_id}/posts/`);
+    navigate(0);
   };
 
   return (
