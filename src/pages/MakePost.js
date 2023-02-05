@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 
 const MakePost = () => {
   const { project_id } = useParams();
+  const navigate = useNavigate();
   const { userAccount } = useSelector((state) => state.reducer.user);
 
   const {
@@ -23,13 +24,13 @@ const MakePost = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(userAccount);
     axiosInstance.post("api/posts/", {
-      author: userAccount.id,
-      project: "1",
-      title: "data.title",
-      content: "data.content",
+      author: userAccount,
+      project: `${project_id}`,
+      title: data.title,
+      content: data.content,
     });
+    navigate(`/projects/${project_id}/posts/`);
   };
 
   return (

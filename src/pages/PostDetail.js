@@ -78,7 +78,10 @@ export default function PostDetail() {
                 <CardHeader
                   avatar={
                     <Avatar
-                      sx={{ height: "40px", width: "40px" }}
+                      sx={{
+                        height: "40px",
+                        width: "40px",
+                      }}
                       alt="author-avatar"
                     >
                       {post.author.username.slice(0, 2)}
@@ -88,7 +91,9 @@ export default function PostDetail() {
                   subheader={post.created_on}
                 />
                 <CardContent>
-                  <Typography varient="h1">{post.title}</Typography>
+                  <Typography variant="h5" component="div">
+                    {post.title}
+                  </Typography>
                   {post.content.split(/\r?\n/).map((msg) => {
                     return <Typography paragraph>{msg}</Typography>;
                   })}
@@ -104,8 +109,8 @@ export default function PostDetail() {
                     <IconButton
                       aria-label="delete post"
                       onClick={() => {
-                        axiosInstance.delete(`posts/${post.id}/`);
-                        navigate(`projects/${project_id}/posts/`);
+                        axiosInstance.delete(`api/posts/${post.id}/`);
+                        navigate(`/projects/${project_id}/posts/`);
                       }}
                     >
                       <DeleteIcon />

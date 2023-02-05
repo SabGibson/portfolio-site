@@ -20,6 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { useSelector } from "react-redux";
+import { randomColor } from "../components/colorGen";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -27,10 +28,13 @@ export default function Home() {
   const { userAccount } = useSelector((state) => state.reducer.user);
 
   const userReady = Boolean(userAccount);
+
   const cardSxStyle = {
-    maxWidth: 500,
-    minWidth: 275,
+    maxWidth: 375,
+    minWidth: 280,
+    m: 1,
     p: 1,
+    flex: "1 1 0px",
   };
 
   const fabStyle = {
@@ -39,94 +43,36 @@ export default function Home() {
     right: "5%",
   };
 
+  const pageTitle = {
+    textAlign: "center",
+    width: "100%",
+    fontWeight: "bold",
+
+    my: 2,
+  };
+
   return (
-    <Box>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        mx: "auto",
+      }}
+    >
       {!userReady && <Login />}
       {userReady && (
         <Box
           component={"div"}
-          sx={{ display: "flex", flexDirection: "column" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+          }}
         >
-          <Typography sx={{ textAlign: "center", width: "100%" }} variant="h4">
+          <Typography sx={pageTitle} variant="h4">
             Project Home
           </Typography>
-          {
-            <Grid sx={{ maxWidth: "90%" }} spacing={5} container>
-              {projectsData.map((project) => {
-                return (
-                  <Grid item xs={12} key={project.id}>
-                    <Card sx={{ minWidth: 200 }}>
-                      <CardActionArea
-                        onClick={() => {
-                          navigate(`/projects/${project.id}/posts/`);
-                        }}
-                        aria-label="navigate to project posts on click"
-                      >
-                        <CardMedia
-                          component={"img"}
-                          height="140"
-                          image={
-                            project.images.length
-                              ? project.images[0].image
-                              : DefaultBg
-                          }
-                        />
-                        <CardHeader
-                          avatar={
-                            <Avatar
-                              sx={{ height: "40px", width: "40px" }}
-                              alt="author-avatar"
-                            >
-                              {"project.creator.username"}
-                            </Avatar>
-                          }
-                          title={project.creator.username}
-                          subheader={project.created_on}
-                        />
-                        <CardContent>
-                          <Typography varient="h5" component="div">
-                            {project.title}
-                          </Typography>
-                          <Typography varient="body2">
-                            {project.description}
-                          </Typography>
-                        </CardContent>
-                      </CardActionArea>
-                      <Divider />
-                      <CardActions
-                        sx={{
-                          display: "flex-block",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        <Box component={"div"} sx={{ justifyContent: "start" }}>
-                          <IconButton
-                            aria-label="delete post"
-                            onClick={() => {
-                              axiosInstance.delete(
-                                `api/projects/${project.id}/`
-                              );
-                              navigate(`/`);
-                            }}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                          <IconButton
-                            aria-label="edit post"
-                            onClick={() => {
-                              navigate(`/projects/${project.id}/`);
-                            }}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                        </Box>
-                      </CardActions>
-                    </Card>
-                  </Grid>
-                );
-              })}
-            </Grid>
-          }
           <Fab
             sx={{ alignItems: "center", ...fabStyle }}
             color="seconprimarydary"
@@ -137,6 +83,95 @@ export default function Home() {
           >
             <AddIcon />
           </Fab>
+          {
+            <Box
+              sx={{
+                display: "flex",
+                flexWrap: "wrap",
+                mx: "auto",
+              }}
+            >
+              {projectsData.map((project) => {
+                return (
+                  <Card sx={cardSxStyle} key={project.id}>
+                    <CardActionArea
+                      onClick={() => {
+                        navigate(`/projects/${project.id}/posts/`);
+                      }}
+                      aria-label="navigate to project posts on click"
+                    >
+                      <CardMedia
+                        component={"img"}
+                        height="140"
+                        image={
+                          project.images.length
+                            ? project.images[0].image
+                            : DefaultBg
+                        }
+                      />
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{
+                              height: "50px",
+                              width: "50px",
+                            }}
+                            alt="author-avatar"
+                          >
+                            {project.creator.username.slice(0, 2)}
+                          </Avatar>
+                        }
+                        title={project.creator.username}
+                        subheader={project.created_on}
+                      />
+                      <CardContent sx={{ height: "120px" }}>
+                        <Typography
+                          varient="h5"
+                          sx={{
+                            fontWeight: "bold",
+                            fontSize: "1.35rem",
+                            mb: 2,
+                          }}
+                        >
+                          {project.title}
+                        </Typography>
+                        <Typography varient="body2">
+                          {project.description}
+                        </Typography>
+                      </CardContent>
+                    </CardActionArea>
+                    <Divider />
+                    <CardActions
+                      sx={{
+                        display: "flex-block",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Box component={"div"} sx={{ justifyContent: "start" }}>
+                        <IconButton
+                          aria-label="delete post"
+                          onClick={() => {
+                            axiosInstance.delete(`api/projects/${project.id}/`);
+                            navigate(`/`);
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                        <IconButton
+                          aria-label="edit post"
+                          onClick={() => {
+                            navigate(`/projects/${project.id}/`);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </Box>
+                    </CardActions>
+                  </Card>
+                );
+              })}
+            </Box>
+          }
         </Box>
       )}
     </Box>

@@ -30,6 +30,7 @@ import Container from "@mui/material/Container";
 import axiosInstance from "../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../redux/user";
+
 const drawerWidth = 240;
 
 const SiteNav = () => {
@@ -39,13 +40,6 @@ const SiteNav = () => {
   const dispatch = useDispatch();
   const { userAccount } = useSelector((state) => state.reducer.user);
   const authedAccount = Boolean(userAccount);
-
-  const account = {
-    displayName: "Test User",
-    username: "@Tester123",
-    profilePicture: false,
-    profilePath: "path",
-  };
 
   const theme = useTheme;
   const [open, setOpen] = useState(false);
@@ -190,7 +184,7 @@ const SiteNav = () => {
               variant="contained"
               aria-label="sign-up button"
               onClick={() => {
-                navigate("/sign-up");
+                navigate("/sign-up/");
               }}
             >
               Sign-Up
@@ -202,7 +196,7 @@ const SiteNav = () => {
               variant="contained"
               arial-label="login button"
               onClick={() => {
-                navigate("/login");
+                navigate("/login/");
               }}
             >
               Login
@@ -219,11 +213,11 @@ const SiteNav = () => {
               <CardHeader
                 avatar={
                   <Avatar sx={avatarSxStyle} alt="profile-avatar">
-                    {"auth.username.slice(0,2)"}
+                    {userAccount.username.slice(0, 2)}
                   </Avatar>
                 }
-                title={"UserName"}
-                subheader={`DisplayName`}
+                title={userAccount.first_name}
+                subheader={`@${userAccount.username}`}
               />
               <CardActions
                 sx={{ display: "flex", justifyContent: "space-between" }}
