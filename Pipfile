@@ -25,6 +25,7 @@ python-decouple = "*"
 install = "*"
 django-ckeditor = "*"
 cloudinary = "*"
+django-cloudinary-storage = "*"
 
 [dev-packages]
 pytest-watch = "*"
