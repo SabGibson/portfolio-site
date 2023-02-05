@@ -59,7 +59,7 @@ class PostFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostFile
-        fields = ['id', 'image', 'alt']
+        fields = ['id', 'file']
 
 
 class CommentSerializer(serializers.ModelSerializer):
