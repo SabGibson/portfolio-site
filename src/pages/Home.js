@@ -47,7 +47,6 @@ export default function Home() {
     textAlign: "center",
     width: "100%",
     fontWeight: "bold",
-
     my: 2,
   };
 
@@ -109,21 +108,7 @@ export default function Home() {
                             : DefaultBg
                         }
                       />
-                      <CardHeader
-                        avatar={
-                          <Avatar
-                            sx={{
-                              height: "50px",
-                              width: "50px",
-                            }}
-                            alt="author-avatar"
-                          >
-                            {project.creator.username.slice(0, 2)}
-                          </Avatar>
-                        }
-                        title={project.creator.username}
-                        subheader={project.created_on}
-                      />
+
                       <CardContent sx={{ height: "120px" }}>
                         <Typography
                           varient="h5"
@@ -139,6 +124,21 @@ export default function Home() {
                           {project.description}
                         </Typography>
                       </CardContent>
+                      <CardHeader
+                        avatar={
+                          <Avatar
+                            sx={{
+                              height: "50px",
+                              width: "50px",
+                            }}
+                            alt="author-avatar"
+                          >
+                            {project.creator.username.slice(0, 2)}
+                          </Avatar>
+                        }
+                        title={project.creator.username}
+                        subheader={project.created_on}
+                      />
                     </CardActionArea>
                     <Divider />
                     <CardActions
