@@ -15,8 +15,6 @@ from pathlib import Path
 import os
 
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,8 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
-
 
 
 # Application definition
@@ -43,6 +39,8 @@ INSTALLED_APPS = [
     "corsheaders",
     'rest_framework_simplejwt.token_blacklist',
     'rest_framework',
+    'cloudinary_storage',
+    'cloudinary',
     'djoser',
     'portfolio',
     'core',
@@ -85,7 +83,6 @@ WSGI_APPLICATION = "pportapi.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
@@ -125,7 +122,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -136,7 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    'DATETIME_FORMAT' : "%d-%m-%Y %H:%M:%S",
+    'DATETIME_FORMAT': "%d-%m-%Y %H:%M:%S",
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ), 'DEFAULT_PERMISSION_CLASSES': [
@@ -158,8 +154,8 @@ AUTH_USER_MODEL = 'core.User'
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True, 'SEND_CONFIRMATION_EMAIL': True,
-    'SERIALIZERS': {'user_create': 'core.serializers.UserCreateSerializer', 
-    'current_user': 'core.serializers.UserSerializer'},
+    'SERIALIZERS': {'user_create': 'core.serializers.UserCreateSerializer',
+                    'current_user': 'core.serializers.UserSerializer'},
 }
 
 
@@ -167,6 +163,3 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000"
 ]
-
-
-

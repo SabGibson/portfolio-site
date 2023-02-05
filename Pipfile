@@ -24,6 +24,7 @@ django-heroku = "*"
 python-decouple = "*"
 install = "*"
 django-ckeditor = "*"
+cloudinary = "*"
 
 [dev-packages]
 pytest-watch = "*"
