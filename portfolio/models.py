@@ -75,6 +75,7 @@ class PostImage(models.Model):
         Post, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='post/images',
                               validators=[validate_file_size])
+    alt = models.CharField(max_length=255, null=True)
 
 
 class PostFile(models.Model):
@@ -82,6 +83,7 @@ class PostFile(models.Model):
         Post, on_delete=models.CASCADE, related_name='files')
     file = models.FileField(upload_to='post/files', validators=[validate_document_size, FileExtensionValidator(
         allowed_extensions=['pdf', 'py', 'xls', 'js', 'doc', 'txt'])])
+    title = models.CharField(max_length=255, null=True)
 
 
 class Comment(models.Model):

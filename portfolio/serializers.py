@@ -48,7 +48,7 @@ class PostImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostImage
-        fields = ['id', 'image']
+        fields = ['id', 'alt', 'image']
 
 
 class PostFileSerializer(serializers.ModelSerializer):
@@ -59,7 +59,7 @@ class PostFileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PostFile
-        fields = ['id', 'file']
+        fields = ['id', 'title', 'file']
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -67,7 +67,7 @@ class CommentSerializer(serializers.ModelSerializer):
         post_id = self.context['post_id']
         return Comment.objects.create(post_id=post_id, **validated_data)
 
-    author = serializers.StringRelatedField()
+    author = UserSerializer(read_only=True)
 
     class Meta:
         model = Comment
