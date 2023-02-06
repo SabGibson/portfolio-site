@@ -24,7 +24,7 @@ const UpdateProject = () => {
       description: data.content,
     });
     console.log(response);
-    // navigate("/");
+    navigate("/projects/");
   };
 
   return (

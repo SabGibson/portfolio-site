@@ -25,8 +25,7 @@ const Register = () => {
         re_password: data.confirmPassword,
       })
       .then((res) => {
-        // window.location.reload();
-        navigate("/login");
+        navigate("/login/");
       })
       .catch((err) => {
         console.log(err.message);

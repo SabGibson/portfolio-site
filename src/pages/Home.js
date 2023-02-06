@@ -146,7 +146,7 @@ export default function Home() {
                           aria-label="delete post"
                           onClick={() => {
                             axiosInstance.delete(`api/projects/${project.id}/`);
-                            navigate(`/`);
+                            navigate(`/projects/`);
                           }}
                         >
                           <DeleteIcon />

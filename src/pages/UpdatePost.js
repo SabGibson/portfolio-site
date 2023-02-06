@@ -24,7 +24,7 @@ const UpdatePost = () => {
       title: data.title,
       content: data.content,
     });
-    // navigate(`/`);
+    navigate(`/projects/`);
   };
 
   return (
