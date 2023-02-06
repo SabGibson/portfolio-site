@@ -20,7 +20,7 @@ const UpdatePost = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    axiosInstance.patch(`posts/${post_param_id}/`, {
+    axiosInstance.patch(`api/posts/${post_param_id}/`, {
       title: data.title,
       content: data.content,
     });

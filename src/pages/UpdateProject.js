@@ -19,7 +19,7 @@ const UpdateProject = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    const response = await axiosInstance.patch(`projects/${project_id}/`, {
+    const response = await axiosInstance.patch(`api/projects/${project_id}/`, {
       title: data.title,
       description: data.content,
     });
