@@ -25,7 +25,7 @@ const UpdateProject = () => {
       description: data.content,
     });
     window.location.reload();
-    navigate(`/projects/`);
+    navigate(`/`);
   };
 
   return (
