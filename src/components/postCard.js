@@ -215,6 +215,7 @@ const PostCard = ({ post, project_id, key }) => {
                   <Typography
                     component="a"
                     href={file.file}
+                    target={"_blank"}
                     sx={{ fontSize: ".8rem" }}
                     variant="body2"
                   >
