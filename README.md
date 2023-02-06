@@ -8,7 +8,7 @@
 
 Full stack website made by extending database-backend MVC web application with react this RESTapi backend website was created. The vision behind this project was to create a simple shared kanban board for the completion of projects.
 
-## ![](assets/images/screenshot-website-preview.png)
+## ![](readme/homepage.png)
 
 ## Technologies
 
@@ -34,7 +34,7 @@ Full stack website made by extending database-backend MVC web application with r
 - postman: used to test api enpoints and outputs from requests
 - pytest: used to run automated tests in python
 - pytest-django: to test django behaviours
-- Heroku : used to deploy backed api corresponding to backend branch 
+- Heroku : used to deploy backed api corresponding to backend branch
 - Netlify: used to deploy frontened corresponding to fronend branch
 
 ## Design
@@ -44,29 +44,20 @@ Full stack website made by extending database-backend MVC web application with r
 - Prelimanry wireframes were completed for the UI of the website however following an agile approach a greater focus was put towards development of features and how the could evolve. additionally as the site is similar to trello and other board sites it was decided to spend more time on features to enable greater UX and by levraging designs users are experienced with I was able to optimise sprint time.
 
 - Below are the wire frames for the site:
-  ![](assets/images/screenshot-website-wireframe.png)
-  ![](assets/images/screenshot-website-desktop-only-wireframe.png)
-  ![](assets/images/screenshot-hm-pg-wireframe.png)
+  ![](readme/wireframe.png)
 
 ### Agile
 
 - A kanban sprint approach was used for the managment of the projects to ensure key features would be developed within the timeline of the project. Sprints for the project were 1 week long.
 
 - Below are screeenshots of the kanban board
-  ![](pportui\src\assets\Screenshot-kan.png)
+  ![](readme/kanban.png)
 
 - The font was also selected to stay uniform with the theme as such the default material ui theme was used.
 
 ### Images
 
 - Images used in the site are royalty free or have been shared under the open source licence full references and credits below.
-
-- nice to have features that were not implimented were:
--- Avatar Profile pictures
--- Org Rooms 
--- Carosel 
--- Static Ad Page
--- Likes 
 
 ### Layout
 
@@ -81,17 +72,18 @@ Full stack website made by extending database-backend MVC web application with r
 
 - Navbar
 
-  ![](assets/images/screenshot-header.png)
-
   - The main navcomponant is the side drawbar used to log out and return home but when considering the user flow diagram for site usage and site map the Nav bar resulted in redundancies as users interact with posts and projects directly.
 
 - Cards: Cards used to display key information adn fit with board astetic
+  ![](readme/cards.png)
 
 - Create: Floating action buttons are used to create posts and projects
 
-- Read: Information presented is avalibale to reat and had been fetced with get request 
+- Read: Information presented is avalibale to reat and had been fetced with get request
 
 -Update: by selectig the pencil icon cards and projects can be edited partially
+
+![](readme/projects.png)
 
 -Delete: Deleting casscades all child elements are deleted on delete.
 
@@ -100,6 +92,16 @@ Full stack website made by extending database-backend MVC web application with r
 - Comments: comments can be posted to a post
 
 - File Upload: files can be attached to a post using the file upload button
+
+![](readme/comments.png)
+
+- Nice to have features that were not implimented were:
+  - Avatar Profile pictures
+  - Org Rooms
+  - Carosel
+  - Static Ad Page
+  - Likes
+
 ### Pages
 
 All pages are fully responsive on all devices down to a minimum screen width of 320px
@@ -121,7 +123,7 @@ All pages are fully responsive on all devices down to a minimum screen width of 
 - The project was tested continiusly duriung development manually the inbult linters in both django and react.
 - Automated tests were established to ensure basica functionality of the site such as the CRUD operations and user authentication.
 
-  ![](pportui\src\assets\back_end_testing.png)
+  ![](readme/lighthouse.png)
 
 - [HTML Validator from w3 schools](https://validator.w3.org) was used to validate formatting of HTML pages. SUCCESS on all pages
 - EsLint returned valid for all pages
@@ -132,21 +134,19 @@ All pages are fully responsive on all devices down to a minimum screen width of 
 
 - Serializers: When trying to nest serialisers to create nested objects that can be used by the frontend it resultes in the desired nestign but due to improper configuration of serializer field additional input requirements for the post request. This instance led to the requiremtn to submit objects. After reading documentation applying readonly fields and levraging serializer context the problem was resolved as the user wqas not required to input that information.
 
-
   - nested routers: nested routers were implimented using the DRF_Nested library. one drawback was that the deepest level of nesting was only two levels. hence for the site lay out which follows the structure of Project -> Post -> Ancellary (e.g comment,image or file) it was impossible to levrage this library to further nest the features. a solution was developed using props and url parametes to artifically created the nesting from a user point of view , preserving continuity but breaking down the routing to specific paths to achieve this.
 
   - Deployment: THe deployment of the project was where the largest amount of challenges and time was consumed. Having not deployed a website live before adn using several differet modules these futher contributed to the challenges described below.
   - Procfile: to deploy to heroku a proc file is nessessary to ensure the correct configuration of the backend occours. The procfile revieled the issue I had present in my code with management of static assets. by using the 'whitenoise' library I was able to overcome the static files build error seen.
-  
-  - Organization: for a conscise submission i was initally working form one branc with two foulders. This structure meant that my files were hidden from the autometed process that occour during deployment leading to sevral failed builds. I initally linearized my foulder but this did not resolve the issue as it meant multiple technologies were conflicting with teh tests adn the nature could not be determined. To overcome this I created two seprate branches to allow for easier interpetation
-  
-  - Heroku Buildpack: The heroku build back for create react app was dpreicated june 22 as such I was recieveing error s whe nusing teh node js build back and ultimately could not deploy the frontend to heroku. I subsequently fiund another place to host the frontend.
-  
-  - CORS Permissions: Even though both front and backend were now deployed I was unabel to replicate development server functionality. This was dure to the allowed cors headers. cors was preventing data from being sent from the backend as such prerenderd componants from the front end did not work either. I resolved this bug by adding the frontend api to the approved cors headers list.
-  
-  - Netlify Routing: Netlify was preventing rotues bing accessed, by default. the app would load and you could essentially move forward but and CRUD activity would see teh site return a 404 page for routes defined. using teh '_redirect' file I was able to override this behaviour and produce a fully functional full stack website.
 
-- styling: 
+  - Organization: for a conscise submission i was initally working form one branc with two foulders. This structure meant that my files were hidden from the autometed process that occour during deployment leading to sevral failed builds. I initally linearized my foulder but this did not resolve the issue as it meant multiple technologies were conflicting with teh tests adn the nature could not be determined. To overcome this I created two seprate branches to allow for easier interpetation
+
+  - Heroku Buildpack: The heroku build back for create react app was dpreicated june 22 as such I was recieveing error s whe nusing teh node js build back and ultimately could not deploy the frontend to heroku. I subsequently fiund another place to host the frontend.
+
+  - CORS Permissions: Even though both front and backend were now deployed I was unabel to replicate development server functionality. This was dure to the allowed cors headers. cors was preventing data from being sent from the backend as such prerenderd componants from the front end did not work either. I resolved this bug by adding the frontend api to the approved cors headers list.
+
+  - Netlify Routing: Netlify was preventing rotues bing accessed, by default. the app would load and you could essentially move forward but and CRUD activity would see teh site return a 404 page for routes defined. using teh '\_redirect' file I was able to override this behaviour and produce a fully functional full stack website.
+    S
 
 ## acing the other html document in the same level as the index.html file and assets folder.
 
@@ -187,7 +187,6 @@ Technologies used during the project can be found here:
 - [Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 - [Axios](https://axios-http.com/docs/intro)
 - [MUI V5](https://mui.com/material-ui/material-icons/)
-
 
 ---
 
