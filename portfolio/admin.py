@@ -30,3 +30,23 @@ class PostAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['author', 'post', 'created_on', 'status']
     list_editable = ['status']
+
+
+@admin.register(ProfileImage)
+class PostImageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'image']
+
+
+@admin.register(ProjectImage)
+class ProjectImageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'project', 'image', ]
+
+
+@admin.register(PostImage)
+class PostImageAdmin(admin.ModelAdmin):
+    list_display = ['id', 'post', 'image', 'alt']
+
+
+@admin.register(PostFile)
+class PostFileAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'file']

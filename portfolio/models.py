@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from .validators import validate_file_size, validate_document_size
 from django.core.validators import FileExtensionValidator
-from cloudinary_storage.storage import MediaCloudinaryStorage
+from cloudinary_storage.storage import MediaCloudinaryStorage, RawMediaCloudinaryStorage
 # Create your models here.
 
 
@@ -83,7 +83,7 @@ class PostFile(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='files')
     file = models.FileField(upload_to='post/files', validators=[validate_document_size, FileExtensionValidator(
-        allowed_extensions=['pdf', 'py', 'xls', 'js', 'doc', 'txt'])])
+        allowed_extensions=['pdf', 'py', 'xls', 'js', 'doc', 'txt'])], storage=RawMediaCloudinaryStorage())
     title = models.CharField(max_length=255, null=True)
 
 
