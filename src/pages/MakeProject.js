@@ -25,7 +25,6 @@ const MakeProject = () => {
       title: data.title,
       description: data.content,
     });
-    window.location.reload();
     navigate("/projects/");
   };
 

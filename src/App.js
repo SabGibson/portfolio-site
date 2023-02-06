@@ -22,8 +22,8 @@ const router = createBrowserRouter(
     <Route path="/" element={<SiteNav />}>
       <Route index element={<Login />} />
       <Route path="projects/" loader={projectsLoader} element={<Home />} />
-      <Route path="login" element={<Login />} />
-      <Route path="sign-up" element={<Register />} />
+      <Route path="login/" element={<Login />} />
+      <Route path="sign-up/" element={<Register />} />
       <Route
         path="projects/:project_id/posts/"
         loader={postsByProjectLoader}
