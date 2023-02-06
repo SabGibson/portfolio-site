@@ -21,6 +21,7 @@ const UploadFileForm = ({ post_id }) => {
       }
     );
     console.log(response);
+    window.location.reload();
   };
 
   return (

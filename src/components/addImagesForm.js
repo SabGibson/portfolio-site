@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import axiosInstance from "../api/axios";
-import CloseIcon from "@mui/icons-material/Close";
 const AddImage = ({ addImage, setAddImage, post_id }) => {
   const { register, handleSubmit } = useForm();
 
