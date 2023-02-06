@@ -11,10 +11,8 @@ const Register = () => {
   const navigate = useNavigate();
 
   const {
-    register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -27,8 +25,7 @@ const Register = () => {
         re_password: data.confirmPassword,
       })
       .then((res) => {
-        console.log(res);
-        console.log("user created");
+        window.location.reload();
         navigate("/login");
       })
       .catch((err) => {

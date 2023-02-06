@@ -4,11 +4,10 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ProjectImage from "../assets/make_project.jpg";
 
 const UpdatePost = () => {
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const UpdatePost = () => {
       title: data.title,
       content: data.content,
     });
-
+    window.location.reload();
     navigate(`/projects/${project_id}/posts/`);
   };
 

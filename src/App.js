@@ -21,12 +21,8 @@ import UpdateProject from "./pages/UpdateProject";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<SiteNav />}>
-      <Route
-        index
-        path="projects/"
-        loader={projectsLoader}
-        element={<Home />}
-      />
+      <Route index loader={projectsLoader} element={<Home />} />
+      <Route path="projects/" loader={projectsLoader} element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="sign-up" element={<Register />} />
       <Route
@@ -41,7 +37,6 @@ const router = createBrowserRouter(
         path="projects/:id/posts/:post_param_id/update"
         element={<UpdatePost />}
       />
-      <Route path="*" element={<Error />} />
     </Route>
   )
 );

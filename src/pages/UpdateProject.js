@@ -4,34 +4,28 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
 
 const UpdateProject = () => {
   const navigate = useNavigate();
   const { project_id } = useParams();
 
-  const [projHist, setProjHist] = useState();
-
   const {
-    register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
     axiosInstance.patch(`projects/${project_id}/`, {
-      ...projHist,
       title: data.title,
       description: data.content,
     });
-
-    navigate(`projects/`);
+    window.location.reload();
+    navigate(`/projects/`);
   };
 
   return (

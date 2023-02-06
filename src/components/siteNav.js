@@ -37,6 +37,7 @@ const SiteNav = () => {
   const navigate = useNavigate();
 
   const isLoggedin = Boolean(localStorage.getItem("access_token"));
+  console.log(isLoggedin);
   const dispatch = useDispatch();
   const { userAccount } = useSelector((state) => state.reducer.user);
   const authedAccount = Boolean(userAccount);
@@ -53,7 +54,7 @@ const SiteNav = () => {
   };
 
   const LogoutCall = () => {
-    if (true) {
+    if (isLoggedin) {
       const response = axiosInstance.post("logout/", {
         refresh_token: localStorage.getItem("refresh_token"),
       });
@@ -210,15 +211,17 @@ const SiteNav = () => {
                 boxShadow: "none",
               }}
             >
-              <CardHeader
-                avatar={
-                  <Avatar sx={avatarSxStyle} alt="profile-avatar">
-                    {userAccount.username.slice(0, 2)}
-                  </Avatar>
-                }
-                title={userAccount.first_name}
-                subheader={`@${userAccount.username}`}
-              />
+              {isLoggedin && (
+                <CardHeader
+                  avatar={
+                    <Avatar sx={avatarSxStyle} alt="profile-avatar">
+                      {userAccount.username.slice(0, 2)}
+                    </Avatar>
+                  }
+                  title={userAccount.first_name}
+                  subheader={`@${userAccount.username}`}
+                />
+              )}
               <CardActions
                 sx={{ display: "flex", justifyContent: "space-between" }}
                 disableSpacing
@@ -226,7 +229,14 @@ const SiteNav = () => {
                 <IconButton onClick={LogoutCall} aria-label="logout">
                   <LogoutIcon />
                 </IconButton>
-                <IconButton aria-label="home page" edge="end" sx={{ mr: 1 }}>
+                <IconButton
+                  aria-label="home page"
+                  edge="end"
+                  sx={{ mr: 1 }}
+                  onClick={() => {
+                    navigate("/projects/");
+                  }}
+                >
                   <HomeIcon />
                 </IconButton>
               </CardActions>

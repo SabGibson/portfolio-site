@@ -10,7 +10,6 @@ import DefaultBg from "../assets/default_bg.jpg";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArticleIcon from "@mui/icons-material/Article";
 import EditIcon from "@mui/icons-material/Edit";
 import axiosInstance from "../api/axios";
 import Divider from "@mui/material/Divider";
@@ -21,11 +20,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import { randomColor } from "../components/colorGen";
 import { useState } from "react";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import CommentsSection from "./commentsForm";
 import UploadFileForm from "./uploadForm";
+import AddImage from "./addImagesForm";
 
 const PostCard = ({ post, project_id, key }) => {
   const [expanded, setExpanded] = useState(false);
+  const [addImage, setAddImage] = useState(false);
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -115,19 +117,33 @@ const PostCard = ({ post, project_id, key }) => {
               aria-label="delete post"
               onClick={() => {
                 axiosInstance.delete(`api/posts/${post.id}/`);
+                window.location.reload();
                 navigate(`/projects/${project_id}/posts/`);
               }}
             >
               <DeleteIcon />
             </IconButton>
             <IconButton
-              aria-label="edit post"
+              aria-label="add picture"
               onClick={() => {
                 navigate(`/projects/${project_id}/posts/${post.id}/update`);
               }}
             >
               <EditIcon icon_id={post.id} />
             </IconButton>
+            <IconButton
+              aria-label="add project picture"
+              onClick={() => {
+                setAddImage(!addImage);
+              }}
+            >
+              <AddPhotoAlternateIcon icon_id={post.id} />
+            </IconButton>
+            <AddImage
+              addImage={addImage}
+              setAddImage={setAddImage}
+              post_id={post.id}
+            />
           </Box>
           <ExpandMore
             expand={expanded}
@@ -190,18 +206,23 @@ const PostCard = ({ post, project_id, key }) => {
         >
           <UploadFileForm post_id={post.id} />
           {post.files.length > 0 ? (
-            post.files.map((file) => {
-              return (
-                <Typography
-                  component="a"
-                  href={file.file}
-                  sx={{ fontSize: ".8rem" }}
-                  variant="body2"
-                >
-                  attachment#{file.id}
-                </Typography>
-              );
-            })
+            <Box
+              component={"div"}
+              sx={{ display: "flex", flexDirection: "column" }}
+            >
+              {post.files.map((file) => {
+                return (
+                  <Typography
+                    component="a"
+                    href={file.file}
+                    sx={{ fontSize: ".8rem" }}
+                    variant="body2"
+                  >
+                    attachment#{file.id}
+                  </Typography>
+                );
+              })}
+            </Box>
           ) : (
             <Typography> No attchements</Typography>
           )}

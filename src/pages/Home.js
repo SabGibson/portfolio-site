@@ -1,5 +1,4 @@
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
@@ -9,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import DefaultBg from "../assets/default_bg.jpg";
 import Avatar from "@mui/material/Avatar";
-import DefaultProfilePic from "../assets/anon_user.png";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -20,7 +18,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Login from "./Login";
 import { useSelector } from "react-redux";
-import { randomColor } from "../components/colorGen";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -153,6 +150,7 @@ export default function Home() {
                           aria-label="delete post"
                           onClick={() => {
                             axiosInstance.delete(`api/projects/${project.id}/`);
+                            window.location.reload();
                             navigate(`/`);
                           }}
                         >

@@ -30,8 +30,8 @@ const MakePost = () => {
       title: data.title,
       content: data.content,
     });
+    window.location.reload();
     navigate(`/projects/${project_id}/posts/`);
-    navigate(0);
   };
 
   return (
