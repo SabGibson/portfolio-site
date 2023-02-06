@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axios";
 import { useParams } from "react-router-dom";
 import ProjectImage from "../assets/make_project.jpg";
@@ -16,10 +16,9 @@ const MakePost = () => {
   const { userAccount } = useSelector((state) => state.reducer.user);
 
   const {
-    register,
     control,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 

@@ -12,7 +12,6 @@ import Register from "./pages/Register";
 import PostDetail from "./pages/PostDetail";
 import { projectsLoader } from "./pages/Home";
 import { postsByProjectLoader } from "./pages/PostDetail";
-import Error from "./pages/Error";
 import MakePost from "./pages/MakePost";
 import MakeProject from "./pages/MakeProject";
 import UpdatePost from "./pages/UpdatePost";

@@ -16,15 +16,11 @@ import axiosInstance from "../api/axios";
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import Login from "./Login";
-import { useSelector } from "react-redux";
 
 export default function Home() {
   const navigate = useNavigate();
   const projectsData = useLoaderData();
-  const { userAccount } = useSelector((state) => state.reducer.user);
-
-  const userReady = Boolean(userAccount);
+  const isLoggedin = Boolean(localStorage.getItem("access_token"));
 
   const cardSxStyle = {
     maxWidth: 375,
@@ -57,8 +53,8 @@ export default function Home() {
         mx: "auto",
       }}
     >
-      {!userReady && <Login />}
-      {userReady && (
+      {!isLoggedin && navigate("/login/")}
+      {isLoggedin && (
         <Box
           component={"div"}
           sx={{

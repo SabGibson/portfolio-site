@@ -1,17 +1,12 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
 
 const Error = () => {
   const navigate = useNavigate();
 
-  setTimeout(
-    useEffect(() => {
-      navigate("/");
-    }, []),
-    5000
-  );
+  setTimeout(navigate("/"), 5000);
   return (
     <Box component={"div"}>
       <Typography varient="h3">404 Error !</Typography>

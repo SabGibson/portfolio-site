@@ -13,10 +13,9 @@ const MakeProject = () => {
   const navigate = useNavigate();
   const { userAccount } = useSelector((state) => state.reducer.user);
   const {
-    register,
     control,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 

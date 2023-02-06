@@ -15,10 +15,9 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const {
-    register,
     control,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 

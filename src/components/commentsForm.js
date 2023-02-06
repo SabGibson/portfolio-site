@@ -9,10 +9,9 @@ const CommentsSection = ({ post_id }) => {
   const navigate = useNavigate();
   const { project_id } = useParams();
   const {
-    register,
     control,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
 
@@ -25,6 +24,8 @@ const CommentsSection = ({ post_id }) => {
       }
     );
     console.log(response);
+    window.location.reload();
+    navigate(`/projects/${project_id}/posts/`);
   };
 
   return (

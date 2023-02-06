@@ -4,7 +4,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Logo from "../assets/logo.svg";
 import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import DefaultProfilePic from "../assets/anon_user.png";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -12,20 +11,12 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import Divider from "@mui/material/Divider";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
-import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
-import { useTheme } from "@mui/material/styles";
-import { Outlet, Link, useNavigate, NavLink } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import Container from "@mui/material/Container";
 import axiosInstance from "../api/axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,12 +28,10 @@ const SiteNav = () => {
   const navigate = useNavigate();
 
   const isLoggedin = Boolean(localStorage.getItem("access_token"));
-  console.log(isLoggedin);
+
   const dispatch = useDispatch();
   const { userAccount } = useSelector((state) => state.reducer.user);
-  const authedAccount = Boolean(userAccount);
 
-  const theme = useTheme;
   const [open, setOpen] = useState(false);
 
   const handelOpenDrawer = () => {
@@ -61,6 +50,7 @@ const SiteNav = () => {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
       axiosInstance.defaults.headers["Authorization"] = null;
+      console.log(response);
       dispatch(logoutUser);
       navigate("/login/");
     } else {

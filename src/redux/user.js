@@ -11,7 +11,7 @@ export const accountSlice = createSlice({
       state.userAccount = action.payload;
     },
     logoutUser: (state) => {
-      state.userAccount = null;
+      state.userAccount = 0;
     },
   },
 });
