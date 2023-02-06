@@ -167,7 +167,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://pportio.herokuapp.com",
     "http://pportio.herokuapp.com",
     "https://pportio.onrender.com",
-    "http://pportio.onrender.com"
+    "http://pportio.onrender.com",
+    "https://candid-entremet-c964dc.netlify.app"
 
 ]
 
