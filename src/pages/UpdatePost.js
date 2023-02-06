@@ -25,7 +25,7 @@ const UpdatePost = () => {
       content: data.content,
     });
     window.location.reload();
-    navigate(`/projects/${project_id}/posts/`);
+    navigate(`/`);
   };
 
   return (
