@@ -6,8 +6,7 @@ DEBUG = False
 SECRET_KEY = os.environ['SECRET_KEY']
 
 
-ALLOWED_HOSTS = ["pportio-server.herokuapp.com",
-                 '127.0.0.1', 'localhost', 'pportio.surge.sh']
+ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     "default": dj_database_url.config(conn_max_age=600)
