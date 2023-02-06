@@ -19,11 +19,11 @@ const UpdateProject = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    axiosInstance.patch(`projects/${project_id}/`, {
+    const response = await axiosInstance.patch(`projects/${project_id}/`, {
       title: data.title,
       description: data.content,
     });
+    console.log(response);
     // navigate("/");
   };
 
