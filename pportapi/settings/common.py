@@ -163,9 +163,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://delicate-pie-fe91aa.netlify.app",
-    "http://delicate-pie-fe91aa.netlify.app/",
+    "http://delicate-pie-fe91aa.netlify.app",
     "https://pportio.herokuapp.com",
-    "http://pportio.herokuapp.com/",
+    "http://pportio.herokuapp.com",
     "https://pportio.onrender.com",
     "http://pportio.onrender.com"
 
