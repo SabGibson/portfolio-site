@@ -24,7 +24,7 @@ const UpdateProject = () => {
       title: data.title,
       description: data.content,
     });
-    navigate("/");
+    // navigate("/");
   };
 
   return (

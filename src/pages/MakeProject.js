@@ -25,7 +25,7 @@ const MakeProject = () => {
       title: data.title,
       description: data.content,
     });
-    navigate(-1);
+    navigate(-2);
   };
 
   return (

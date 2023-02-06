@@ -24,8 +24,7 @@ const UpdatePost = () => {
       title: data.title,
       content: data.content,
     });
-    window.location.reload();
-    navigate(`/`);
+    // navigate(`/`);
   };
 
   return (
