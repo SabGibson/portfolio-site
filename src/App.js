@@ -20,7 +20,7 @@ import UpdateProject from "./pages/UpdateProject";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<SiteNav />}>
-      <Route index loader={projectsLoader} element={<Home />} />
+      <Route index element={<Login />} />
       <Route path="projects/" loader={projectsLoader} element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="sign-up" element={<Register />} />

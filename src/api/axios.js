@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http:///pportio-server.herokuapp.com/"
+const baseURL = "https:///pportio-server.herokuapp.com/";
 const axiosInstance = axios.create({
   baseURL: baseURL,
   timeout: 5000,

@@ -9,11 +9,19 @@ import axiosInstance from "../api/axios";
 import SigninImage from "../assets/planning_tools.jpg";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/user";
+import { useEffect } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const isLoggedin = Boolean(localStorage.getItem("access_token"));
+
+  useEffect(() => {
+    if (isLoggedin) {
+      navigate("/projects/");
+    }
+  }, []);
   const {
     control,
     handleSubmit,
