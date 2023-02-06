@@ -10,7 +10,8 @@ class UserCreateSerializer(BaseUserCreateSerializer):
         Profile.objects.create(user=user)
 
     class Meta(BaseUserCreateSerializer.Meta):
-        fields = ['id', 'username', 'email', 'password']
+        fields = ['id', 'first_name',
+                  'last_name' 'username', 'email', 'password']
 
 
 class UserSerializer(BaseUserSerializer):
