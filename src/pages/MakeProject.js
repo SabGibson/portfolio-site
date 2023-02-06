@@ -25,7 +25,7 @@ const MakeProject = () => {
       title: data.title,
       description: data.content,
     });
-    navigate("/projects/");
+    navigate(-1);
   };
 
   return (
