@@ -43,7 +43,6 @@ const CommentsSection = ({ post_id }) => {
             label="Comment"
             multiline
             rows={4}
-            // sx={{ my: 1 }}
             varient="standard"
             type="text"
             fullWidth
